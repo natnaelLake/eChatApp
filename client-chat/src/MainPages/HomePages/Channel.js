@@ -15,99 +15,136 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Avatar } from "@mui/material";
 import Home from "../Home";
-import imageOne from '../../Assets/pexels-ali-pazani-2681751 (1).jpg'
-import imageTwo from '../../Assets/pexels-ali-pazani-2681751.jpg'
-import imageThree from '../../Assets/pexels-chris-hepworth-16047551.jpg'
-import imageFour from '../../Assets/pexels-david-bartus-610294.jpg'
-import imageFive from '../../Assets/pexels-esther-huynh-bich-2340876.jpg'
-import imageSix from '../../Assets/pexels-pixabay-219569.jpg'
-import imageSeven from '../../Assets/pexels-максим-11896928.jpg'
-import imageEight from '../../Assets/pexels-pixabay-413885.jpg'
-import imageNine from '../../Assets/pexels-mirco-violent-blur-4033244.jpg'
-import imageTen from '../../Assets/pexels-pixabay-247298.jpg'
+import imageOne from "../../Assets/pexels-ali-pazani-2681751 (1).jpg";
+import imageTwo from "../../Assets/pexels-ali-pazani-2681751.jpg";
+import imageThree from "../../Assets/pexels-chris-hepworth-16047551.jpg";
+import imageFour from "../../Assets/pexels-david-bartus-610294.jpg";
+import imageFive from "../../Assets/pexels-esther-huynh-bich-2340876.jpg";
+import imageSix from "../../Assets/pexels-pixabay-219569.jpg";
+import imageSeven from "../../Assets/pexels-максим-11896928.jpg";
+import imageEight from "../../Assets/pexels-pixabay-413885.jpg";
+import imageNine from "../../Assets/pexels-mirco-violent-blur-4033244.jpg";
+import imageTen from "../../Assets/pexels-pixabay-247298.jpg";
+import { styled } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
+import Stack from "@mui/material/Stack";
 
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
 
-
+const SmallAvatar = styled(Avatar)(({ theme }) => ({
+  width: 22,
+  height: 22,
+  border: `2px solid ${theme.palette.background.paper}`,
+}));
 
 const drawerWidth = 240;
-const data = {data:[
+const data = {
+  data: [
     {
-        image:imageOne,
-        title:'User One'
+      image: imageOne,
+      title: "User One",
     },
     {
-        image:imageTen,
-        title:'User Two'
+      image: imageTen,
+      title: "User Two",
     },
     {
-        image:imageThree,
-        title:'User Three'
+      image: imageThree,
+      title: "User Three",
     },
     {
-        image:imageFour,
-        title:'User Four'
+      image: imageFour,
+      title: "User Four",
     },
     {
-        image:imageFive,
-        title:'User Five'
+      image: imageFive,
+      title: "User Five",
     },
     {
-        image:imageSix,
-        title:'User Six'
+      image: imageSix,
+      title: "User Six",
     },
     {
-        image:imageSeven,
-        title:'User Seven'
+      image: imageSeven,
+      title: "User Seven",
     },
     {
-        image:imageEight,
-        title:'User Eight'
+      image: imageEight,
+      title: "User Eight",
     },
     {
-        image:imageOne,
-        title:'User One'
+      image: imageOne,
+      title: "User One",
     },
     {
-        image:imageNine,
-        title:'User Two'
+      image: imageNine,
+      title: "User Two",
     },
     {
-        image:imageThree,
-        title:'User Three'
+      image: imageThree,
+      title: "User Three",
     },
     {
-        image:imageFour,
-        title:'User Four'
+      image: imageFour,
+      title: "User Four",
     },
     {
-        image:imageSeven,
-        title:'User Ten'
+      image: imageSeven,
+      title: "User Ten",
     },
     {
-        image:imageNine,
-        title:'User Nine'
+      image: imageNine,
+      title: "User Nine",
     },
     {
-        image:imageThree,
-        title:'User Eleven'
+      image: imageThree,
+      title: "User Eleven",
     },
     {
-        image:imageFive,
-        title:'User Twelve'
+      image: imageFive,
+      title: "User Twelve",
     },
     {
-        image:imageEight,
-        title:'User Thirteen'
+      image: imageEight,
+      title: "User Thirteen",
     },
     {
-        image:imageOne,
-        title:'User FourTeen'
+      image: imageOne,
+      title: "User FourTeen",
     },
-]}
+  ],
+};
 function Channel() {
   return (
     <div>
-        {/* <Home/> */}
+      {/* <Home/> */}
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <Drawer
@@ -124,11 +161,26 @@ function Channel() {
           <Toolbar />
           <Box sx={{ overflow: "auto" }}>
             <List>
-            {data.data.map((text, index) => (
+              {data.data.map((text, index) => (
                 <ListItem key={text.title} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
-                    <Avatar alt="Remy Sharp" src={text.image} />
+                      <Stack direction="row" spacing={2}>
+                        <StyledBadge
+                          overlap="circular"
+                          anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "right",
+                          }}
+                          variant="dot"
+                        >
+                          <Avatar
+                            alt="User One"
+                            src={text.image}
+                          />
+                        </StyledBadge>
+                      </Stack>
+                      {/* <Avatar alt="Remy Sharp" src={text.image} /> */}
                       {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
                     </ListItemIcon>
                     <ListItemText primary={text.title} />
@@ -151,9 +203,16 @@ function Channel() {
             </List>
           </Box>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }} bgcolor="success.main" color = 'white'>
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, p: 3 }}
+          bgcolor="success.main"
+          color="white"
+        >
           <Toolbar />
-          <Typography variant = 'h2' textAlign = 'center' color = 'secondary'>Channel Page</Typography>
+          <Typography variant="h2" textAlign="center" color="secondary">
+            Channel Page
+          </Typography>
           <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus

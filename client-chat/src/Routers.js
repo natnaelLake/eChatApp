@@ -4,6 +4,7 @@ import Login from './Pages/AuthPage/Login'
 import SignUp from './Pages/AuthPage/SignUp'
 import Home from './MainPages/Home'
 import Channel from './MainPages/HomePages/Channel'
+import Chat from './Chats/Chat'
 
 
 function Routers() {
@@ -18,7 +19,7 @@ function Routers() {
                 <Route path='/signup' element = {<SignUp/>}></Route>
                 <Route path='/signup' element = {<SignUp/>}></Route>
                 <Route path='/signup' element = {<SignUp/>}></Route>
-
+                <Route path = '/chat' element = {<Chat/>}></Route>
             </Routes>
         </Router>
     </div>
