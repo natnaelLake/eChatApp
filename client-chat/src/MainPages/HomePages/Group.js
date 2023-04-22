@@ -15,264 +15,301 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Home from "../Home";
 import { Avatar } from "@mui/material";
-import imageOne from '../../Assets/pexels-ali-pazani-2681751 (1).jpg'
-import imageTwo from '../../Assets/pexels-ali-pazani-2681751.jpg'
-import imageThree from '../../Assets/pexels-chris-hepworth-16047551.jpg'
-import imageFour from '../../Assets/pexels-david-bartus-610294.jpg'
-import imageFive from '../../Assets/pexels-esther-huynh-bich-2340876.jpg'
-import imageSix from '../../Assets/pexels-pixabay-219569.jpg'
-import imageSeven from '../../Assets/pexels-максим-11896928.jpg'
-import imageEight from '../../Assets/pexels-pixabay-413885.jpg'
-import imageNine from '../../Assets/pexels-mirco-violent-blur-4033244.jpg'
-import imageTen from '../../Assets/pexels-pixabay-247298.jpg'
+import imageOne from "../../Assets/pexels-ali-pazani-2681751 (1).jpg";
+import imageTwo from "../../Assets/pexels-ali-pazani-2681751.jpg";
+import imageThree from "../../Assets/pexels-chris-hepworth-16047551.jpg";
+import imageFour from "../../Assets/pexels-david-bartus-610294.jpg";
+import imageFive from "../../Assets/pexels-esther-huynh-bich-2340876.jpg";
+import imageSix from "../../Assets/pexels-pixabay-219569.jpg";
+import imageSeven from "../../Assets/pexels-максим-11896928.jpg";
+import imageEight from "../../Assets/pexels-pixabay-413885.jpg";
+import imageNine from "../../Assets/pexels-mirco-violent-blur-4033244.jpg";
+import imageTen from "../../Assets/pexels-pixabay-247298.jpg";
+import { styled } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
+import { createStyles, makeStyles, Theme } from "@mui/styles";
+import { Paper, Stack } from "@mui/material";
+import { TextInput } from "../../TextInput.js";
+import { MessageLeft, MessageRight } from "../../Message";
+import ScrollToBottom from "react-scroll-to-bottom";
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    paper: {
+      width: "80vw",
+      height: "80vh",
+      maxWidth: "500px",
+      maxHeight: "700px",
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "relative",
+    },
+    paper2: {
+      width: "80vw",
+      maxWidth: "500px",
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "relative",
+    },
+    container: {
+      width: "100vw",
+      height: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    messagesBody: {
+      width: "calc( 100% - 20px )",
+      margin: 10,
+      overflowY: "scroll",
+      height: "calc( 100% - 80px )",
+    },
+  })
+);
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
 
 const drawerWidth = 240;
-const data = {data:[
+const data = {
+  data: [
     {
-        image:imageOne,
-        title:'User One'
+      image: imageOne,
+      title: "User One",
     },
     {
-        image:imageTen,
-        title:'User Two'
+      image: imageTen,
+      title: "User Two",
     },
     {
-        image:imageThree,
-        title:'User Three'
+      image: imageThree,
+      title: "User Three",
     },
     {
-        image:imageFour,
-        title:'User Four'
+      image: imageFour,
+      title: "User Four",
     },
     {
-        image:imageFive,
-        title:'User Five'
+      image: imageFive,
+      title: "User Five",
     },
     {
-        image:imageSix,
-        title:'User Six'
+      image: imageSix,
+      title: "User Six",
     },
     {
-        image:imageSeven,
-        title:'User Seven'
+      image: imageSeven,
+      title: "User Seven",
     },
     {
-        image:imageEight,
-        title:'User Eight'
+      image: imageEight,
+      title: "User Eight",
     },
     {
-        image:imageOne,
-        title:'User One'
+      image: imageOne,
+      title: "User One",
     },
     {
-        image:imageNine,
-        title:'User Two'
+      image: imageNine,
+      title: "User Two",
     },
     {
-        image:imageThree,
-        title:'User Three'
+      image: imageThree,
+      title: "User Three",
     },
     {
-        image:imageFour,
-        title:'User Four'
+      image: imageFour,
+      title: "User Four",
     },
     {
-        image:imageSeven,
-        title:'User Ten'
+      image: imageSeven,
+      title: "User Ten",
     },
     {
-        image:imageNine,
-        title:'User Nine'
+      image: imageNine,
+      title: "User Nine",
     },
     {
-        image:imageThree,
-        title:'User Eleven'
+      image: imageThree,
+      title: "User Eleven",
     },
     {
-        image:imageFive,
-        title:'User Twelve'
+      image: imageFive,
+      title: "User Twelve",
     },
     {
-        image:imageEight,
-        title:'User Thirteen'
+      image: imageEight,
+      title: "User Thirteen",
     },
     {
-        image:imageOne,
-        title:'User FourTeen'
+      image: imageOne,
+      title: "User FourTeen",
     },
-]}
+  ],
+};
 
 function Group() {
+  const classes = useStyles();
+
   return (
     <div>
-        {/* <Home/> */}
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
+      <Home />
+      <Stack direction="row">
+        <Stack>
+          <CssBaseline />
+          <Drawer
+            variant="permanent"
+            sx={{
               width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-        >
-          <Toolbar />
-          <Box sx={{ overflow: "auto" }}>
-            <List>
-              {data.data.map((text, index) => (
-                <ListItem key={text.title} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                    <Avatar alt="Remy Sharp" src={text.image} />
-                    </ListItemIcon>
-                    <ListItemText primary={text.title} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-            <Divider />
-            <List>
-              {["All mail", "Trash", "Spam"].map((text, index) => (
-                <ListItem key={text} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }} bgcolor="success.main" color = 'white'>
-          <Toolbar />
-          <Typography variant = 'h2' textAlign = 'center' color = 'secondary'>Group Page</Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-        </Box>
-      </Box>
+              flexShrink: 0,
+              [`& .MuiDrawer-paper`]: {
+                width: drawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+          >
+            <Toolbar />
+            <Box sx={{ overflow: "auto" }}>
+              <List>
+                {data.data !== null
+                  ? data.data.map((text, index) => (
+                      <ListItem key={text.title} disablePadding>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <Stack direction="row" spacing={2}>
+                              <StyledBadge
+                                overlap="circular"
+                                anchorOrigin={{
+                                  vertical: "bottom",
+                                  horizontal: "right",
+                                }}
+                                variant="dot"
+                              >
+                                <Avatar alt="User One" src={text.image} />
+                              </StyledBadge>
+                            </Stack>
+                          </ListItemIcon>
+                          <ListItemText primary={text.title} />
+                        </ListItemButton>
+                      </ListItem>
+                    ))
+                  : null}
+              </List>
+              <Divider />
+              <List>
+                {["All mail", "Trash", "Spam"].map((text, index) => (
+                  <ListItem key={text} disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                      </ListItemIcon>
+                      <ListItemText primary={text} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </Drawer>
+        </Stack>
+        <Stack sx={{ height: "100vh" }}>
+          <Paper
+            id="style-1"
+            className={classes.messagesBody}
+            sx={{ height: "100vh" }}
+          >
+            <Stack spacing={2} sx={{ marginTop: "100px" }}>
+              <ScrollToBottom
+                sx={{
+                  width: "100vw",
+                  height: "100vh",
+                  overflowY: "scroll",
+                  overflowX: "hidden",
+                }}
+              >
+                <Stack>
+                  <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                    sx={{ width: "300px" }}
+                  />
+                  <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                    sx={{ width: "300px" }}
+                  />
+                  <MessageLeft
+                    message="welcome to nodejs"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  />
+                </Stack>
+                <Stack
+                  justifyContent="end"
+                  sx={{ display: "flex", float: "right" }}
+                  align="right"
+                  className="rightStack"
+                  spacing={2}
+                >
+                  
+                  <MessageRight
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="User Two"
+                    avatarDisp={true}
+                  />
+                  <MessageRight
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="User Two"
+                    avatarDisp={true}
+                  />
+                 
+                </Stack>
+              </ScrollToBottom>
+              <Stack sx={{ marginTop: "40px" }}>
+                <TextInput />
+              </Stack>
+            </Stack>
+          </Paper>
+        </Stack>
+      </Stack>
     </div>
   );
 }

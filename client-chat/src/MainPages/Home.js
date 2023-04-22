@@ -1,208 +1,241 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { CssBaseline } from "@mui/material";
-import Channel from "./HomePages/Channel";
-import Group from "./HomePages/Group";
-import Private from "./HomePages/Private";
-import Setting from "./HomePages/Setting";
-import Video from "./HomePages/Video";
-import Public from "./HomePages/Public";
-import GroupsIcon from '@mui/icons-material/Groups';
-import ContactsIcon from '@mui/icons-material/Contacts';
-import DeckIcon from '@mui/icons-material/Deck';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
-import PublicIcon from '@mui/icons-material/Public';
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-import SettingsIcon from '@mui/icons-material/Settings';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
+
+import imageOne from "../Assets/pexels-ali-pazani-2681751 (1).jpg";
+import imageTwo from "../Assets/pexels-ali-pazani-2681751.jpg";
+import imageThree from "../Assets/pexels-chris-hepworth-16047551.jpg";
+import imageFour from "../Assets/pexels-david-bartus-610294.jpg";
+import imageFive from "../Assets/pexels-esther-huynh-bich-2340876.jpg";
+import imageSix from "../Assets/pexels-pixabay-219569.jpg";
+import imageSeven from "../Assets/pexels-максим-11896928.jpg";
+import imageEight from "../Assets/pexels-pixabay-413885.jpg";
+import imageNine from "../Assets/pexels-mirco-violent-blur-4033244.jpg";
+import imageTen from "../Assets/pexels-pixabay-247298.jpg";
 
 
-
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
+const pages = ['Products', 'Pricing', 'Blog'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Home() {
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [clicked, setClicked] = React.useState(true);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const handleOnclick = ()=>{
+    setClicked(!clicked)
+  }
+
   return (
-    <div>
-      <Box sx={{ bgcolor: "background.paper", width: 500, display: "flex" }}>
-        <AppBar
-          position="fixed"
-          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1,justifyContent :'center',textAlign: 'center' }}
-        >
-          <CssBaseline />
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            variant="scrollable"
-            scrollButtons
-            allowScrollButtonsMobile
-             // aria-label="scrollable force tabs example"
-            indicatorColor="secondary"
-            textColor="light"
-            aria-label="nav tabs example"
-            centered
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
           >
-            <Tab icon = {<PublicIcon/>} label="Channels" {...a11yProps(0)} />
-            <Tab icon = {<GroupsIcon/>} label="Groups" {...a11yProps(1)} />
-            <Tab icon = {<PersonPinIcon/>}label="Private" {...a11yProps(2)} />
-            <Tab icon = {<DeckIcon/>} label="Public" {...a11yProps(3)} />
-            <Tab icon = {<VideoLibraryIcon/>} label="Videos" {...a11yProps(4)} />
-            <Tab icon = {<SettingsIcon/>}label="Setting" {...a11yProps(5)} />
-          </Tabs>
-        </AppBar>
-        
-      </Box>
-      {value === 0 && (
-        <Box sx={{ marginTop:'80px' }}>
-          <Channel/>
-        </Box>
-      )}
-      {value === 1 && (
-        <Box sx={{ marginTop:'80px' }}>
-          <Group/>
-        </Box>
-      )}
-      {value === 2 && (
-        <Box sx={{ marginTop:'80px' }}>
-          <Private/>
-        </Box>
-      )}
-      {value === 3 && (
-        <Box sx={{ marginTop:'80px' }}>
-          <Public/>
-        </Box>
-      )}{value === 4 && (
-        <Box sx={{ marginTop:'80px' }}>
-          <Video/>
-        </Box>
-      )}
-      {value === 5 && (
-        <Box sx={{ marginTop:'80px' }}>
-          <Setting/>
-        </Box>
-      )}
-      {/* <Box sx={{ bgcolor: "background.paper", width: 500 }}>
-        <AppBar position="static">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="secondary"
-            textColor="inherit"
-            variant="fullWidth"
-            fullWidth
-            centered
-            aria-label="full width tabs example"
+            LOGO
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box> 
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
           >
-            <Tab label="Item One" {...a11yProps(0)} />
-            <Tab label="Item Two" {...a11yProps(1)} />
-            <Tab label="Item Three" {...a11yProps(2)} />
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={handleChangeIndex}
-        >
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <Group/>
-          </TabPanel>
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            Item Two
-          </TabPanel>
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            Item Three
-          </TabPanel>
-        </SwipeableViews>
-      </Box> */}
-    </div>
+            LOGO
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } ,justifyContent:"center"}}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' ,':hover': {
+                  bgcolor: 'primary.main', // theme.palette.primary.main
+                  color: 'white',
+                },
+                ':active': {
+                  bgcolor: 'secondary.main', // theme.palette.primary.main
+                  color: 'white',
+                
+              }}}
+              
+                href = '/channel'
+                // '&:hover'=
+              >
+                Channels
+              </Button>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' ,':hover': {
+                  bgcolor: 'primary.main', // theme.palette.primary.main
+                  color: 'white',
+                },
+                
+              }}
+              itemsAlign = 'center'
+                href = '/group'
+                // '&:hover'=
+              >
+                Groups
+              </Button><Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' ,':hover': {
+                  bgcolor: 'primary.main', // theme.palette.primary.main
+                  color: 'white',
+                },
+                
+              }}
+              itemsAlign = 'center'
+                href = '/private'
+                // '&:hover'=
+              >
+                Private
+              </Button><Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' ,':hover': {
+                  bgcolor: 'primary.main', // theme.palette.primary.main
+                  color: 'white',
+                },
+                
+              }}
+              itemsAlign = 'center'
+                href = '/public'
+                // '&:hover'=
+              >
+                Public
+              </Button><Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' ,':hover': {
+                  bgcolor: 'primary.main', // theme.palette.primary.main
+                  color: 'white',
+                },
+                
+              }}
+              itemsAlign = 'center'
+                href = '/video'
+                // '&:hover'=
+              >
+                Videos
+              </Button>
+              
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src={imageOne} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 }
 export default Home;
-//           <Toolbar>
-//             <Box sx={{ width: "100%" }}>
-//               <Tabs
-//                 value={value}
-//                 onChange={handleChange}
-//                 variant="scrollable"
-//                 scrollButtons
-//                 allowScrollButtonsMobile
-//                 // aria-label="scrollable force tabs example"
-//                 indicatorColor="secondary"
-//                 textColor="light"
-//                 aria-label="nav tabs example"
-//               >
-//                 <Tab label="Item One" {...a11yProps(0)} />
-//                 <Tab label="Item Two" {...a11yProps(1)} />
-//                 <Tab label="Item Three" {...a11yProps(2)} />
-//               </Tabs>
-//             </Box>
-//           </Toolbar>
-//         </AppBar>
-//         <SwipeableViews
-//         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-//         index={value}
-//         onChangeIndex={handleChangeIndex}
-//       >
-//         <TabPanel value={value} index={0} dir={theme.direction}>
-//           Item One
-//         </TabPanel>
-//         <TabPanel value={value} index={1} dir={theme.direction}>
-//           Item Two
-//         </TabPanel>
-//         <TabPanel value={value} index={2} dir={theme.direction}>
-//           Item Three
-//         </TabPanel>
-//       </SwipeableViews>
-//       </Box>
-
-//     </div>
-//   );
-// }
-// export default Home; */

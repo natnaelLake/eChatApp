@@ -1,281 +1,806 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import { red } from "@mui/material/colors";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box } from "@mui/material";
+import image from "../../Assets/pexels-chris-hepworth-16047551.jpg";
+import imageFive from "../../Assets/pexels-esther-huynh-bich-2340876.jpg";
+import imageSix from "../../Assets/pexels-pixabay-219569.jpg";
+import { Image } from "react-bootstrap";
 import Home from "../Home";
-import { Avatar } from "@mui/material";
-import imageOne from '../../Assets/pexels-ali-pazani-2681751 (1).jpg'
-import imageTwo from '../../Assets/pexels-ali-pazani-2681751.jpg'
-import imageThree from '../../Assets/pexels-chris-hepworth-16047551.jpg'
-import imageFour from '../../Assets/pexels-david-bartus-610294.jpg'
-import imageFive from '../../Assets/pexels-esther-huynh-bich-2340876.jpg'
-import imageSix from '../../Assets/pexels-pixabay-219569.jpg'
-import imageSeven from '../../Assets/pexels-максим-11896928.jpg'
-import imageEight from '../../Assets/pexels-pixabay-413885.jpg'
-import imageNine from '../../Assets/pexels-mirco-violent-blur-4033244.jpg'
-import imageTen from '../../Assets/pexels-pixabay-247298.jpg'
+import CssBaseline from "@mui/material/CssBaseline";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import RestoreIcon from "@mui/icons-material/Restore";
+import ArchiveIcon from "@mui/icons-material/Archive";
+import Paper from "@mui/material/Paper";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
 
-const drawerWidth = 240;
+function refreshMessages() {
+  const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
-const data = {data:[
-  {
-      image:imageOne,
-      title:'User One'
-  },
-  {
-      image:imageTen,
-      title:'User Two'
-  },
-  {
-      image:imageThree,
-      title:'User Three'
-  },
-  {
-      image:imageFour,
-      title:'User Four'
-  },
-  {
-      image:imageFive,
-      title:'User Five'
-  },
-  {
-      image:imageSix,
-      title:'User Six'
-  },
-  {
-      image:imageSeven,
-      title:'User Seven'
-  },
-  {
-      image:imageEight,
-      title:'User Eight'
-  },
-  {
-      image:imageOne,
-      title:'User One'
-  },
-  {
-      image:imageNine,
-      title:'User Two'
-  },
-  {
-      image:imageThree,
-      title:'User Three'
-  },
-  {
-      image:imageFour,
-      title:'User Four'
-  },
-  {
-      image:imageSeven,
-      title:'User Ten'
-  },
-  {
-      image:imageNine,
-      title:'User Nine'
-  },
-  {
-      image:imageThree,
-      title:'User Eleven'
-  },
-  {
-      image:imageFive,
-      title:'User Twelve'
-  },
-  {
-      image:imageEight,
-      title:'User Thirteen'
-  },
-  {
-      image:imageOne,
-      title:'User FourTeen'
-  },
-]}
+  return Array.from(new Array(50)).map(
+    () => messageExamples[getRandomInt(messageExamples.length)]
+  );
+}
 
-function Video() {
+export default function Video() {
+  const [value, setValue] = React.useState(0);
+  console.log(value)
+  const ref = React.useRef(null);
+  const [messages, setMessages] = React.useState(() => refreshMessages());
+
+  React.useEffect(() => {
+    ref.current.ownerDocument.body.scrollTop = 0;
+    setMessages(refreshMessages());
+  }, [value, setMessages]);
+
   return (
     <div>
-        {/* <Home/> */}
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ pb: 7 }} ref={ref}>
         <CssBaseline />
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
+        <div>
+          <Home />
+          { value === 0 && 
+            (<>
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+  avatar={
+    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+      R
+    </Avatar>
+  }
+  action={
+    <IconButton aria-label="settings">
+      <MoreVertIcon />
+    </IconButton>
+  }
+  title="Shrimp and Chorizo Paella"
+  subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={image} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+avatar={
+  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+    R
+  </Avatar>
+}
+action={
+  <IconButton aria-label="settings">
+    <MoreVertIcon />
+  </IconButton>
+}
+title="Shrimp and Chorizo Paella"
+subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={image} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center" sx={{ marginTop: "10px" }}>
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+avatar={
+<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+  R
+</Avatar>
+}
+action={
+<IconButton aria-label="settings">
+  <MoreVertIcon />
+</IconButton>
+}
+title="Shrimp and Chorizo Paella"
+subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={image} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+  avatar={
+    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+      R
+    </Avatar>
+  }
+  action={
+    <IconButton aria-label="settings">
+      <MoreVertIcon />
+    </IconButton>
+  }
+  title="Shrimp and Chorizo Paella"
+  subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={image} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+            </>) 
+            
+}
+{ value === 1 && 
+            (<>
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+  avatar={
+    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+      R
+    </Avatar>
+  }
+  action={
+    <IconButton aria-label="settings">
+      <MoreVertIcon />
+    </IconButton>
+  }
+  title="Shrimp and Chorizo Paella"
+  subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={imageFive} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+avatar={
+  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+    R
+  </Avatar>
+}
+action={
+  <IconButton aria-label="settings">
+    <MoreVertIcon />
+  </IconButton>
+}
+title="Shrimp and Chorizo Paella"
+subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={imageFive} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center" sx={{ marginTop: "10px" }}>
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+avatar={
+<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+  R
+</Avatar>
+}
+action={
+<IconButton aria-label="settings">
+  <MoreVertIcon />
+</IconButton>
+}
+title="Shrimp and Chorizo Paella"
+subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={imageFive} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+  avatar={
+    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+      R
+    </Avatar>
+  }
+  action={
+    <IconButton aria-label="settings">
+      <MoreVertIcon />
+    </IconButton>
+  }
+  title="Shrimp and Chorizo Paella"
+  subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={imageFive} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+            </>) 
+}
+            
+{ value === 2 && 
+            (<>
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+  avatar={
+    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+      R
+    </Avatar>
+  }
+  action={
+    <IconButton aria-label="settings">
+      <MoreVertIcon />
+    </IconButton>
+  }
+  title="Shrimp and Chorizo Paella"
+  subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={imageSix} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+avatar={
+  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+    R
+  </Avatar>
+}
+action={
+  <IconButton aria-label="settings">
+    <MoreVertIcon />
+  </IconButton>
+}
+title="Shrimp and Chorizo Paella"
+subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={imageSix} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center" sx={{ marginTop: "10px" }}>
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+avatar={
+<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+  R
+</Avatar>
+}
+action={
+<IconButton aria-label="settings">
+  <MoreVertIcon />
+</IconButton>
+}
+title="Shrimp and Chorizo Paella"
+subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={imageSix} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+              <br />
+              <Box align="center">
+                <Card sx={{ maxWidth: 345 }}>
+                  {/* <CardHeader
+  avatar={
+    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+      R
+    </Avatar>
+  }
+  action={
+    <IconButton aria-label="settings">
+      <MoreVertIcon />
+    </IconButton>
+  }
+  title="Shrimp and Chorizo Paella"
+  subheader="September 14, 2016"
+/> */}
+                  <CardContent sx={{ marginTop: "0" }}>
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <Image src={imageSix} width="345px" height="100%" />
+                    {/* <CardActions disableSpacing> */}
+                    <IconButton
+                      aria-label="add to favorites"
+                      sx={{ marginTop: "-90px" }}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Box>
+            </>) 
+}
+        </div>
+        <Paper
+          sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+          elevation={3}
         >
-          <Toolbar />
-          <Box sx={{ overflow: "auto" }}>
-            <List>
-              {data.data.map((text, index) => (
-                <ListItem key={text.title} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                    <Avatar alt="Remy Sharp" src={text.image} />
-                    </ListItemIcon>
-                    <ListItemText primary={text.title} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-            <Divider />
-            <List>
-              {["All mail", "Trash", "Spam"].map((text, index) => (
-                <ListItem key={text} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3}} bgcolor="success.main" color = 'white'>
-          <Toolbar />
-          <Typography variant = 'h2' textAlign = 'center' color = 'secondary'>Vidoe Page</Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-        </Box>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          >
+            <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+            <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+            <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
+          </BottomNavigation>
+        </Paper>
       </Box>
     </div>
   );
 }
-
-export default Video;
+const messageExamples = [
+  {
+    primary: "Brunch this week?",
+    secondary:
+      "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+    person: "/static/images/avatar/5.jpg",
+  },
+  {
+    primary: "Birthday Gift",
+    secondary: `Do you have a suggestion for a good present for John on his work
+      anniversary. I am really confused & would love your thoughts on it.`,
+    person: "/static/images/avatar/1.jpg",
+  },
+  {
+    primary: "Recipe to try",
+    secondary:
+      "I am try out this new BBQ recipe, I think this might be amazing",
+    person: "/static/images/avatar/2.jpg",
+  },
+  {
+    primary: "Yes!",
+    secondary: "I have the tickets to the ReactConf for this year.",
+    person: "/static/images/avatar/3.jpg",
+  },
+  {
+    primary: "Doctor's Appointment",
+    secondary:
+      "My appointment for the doctor was rescheduled for next Saturday.",
+    person: "/static/images/avatar/4.jpg",
+  },
+  {
+    primary: "Discussion",
+    secondary: `Menus that are generated by the bottom app bar (such as a bottom
+      navigation drawer or overflow menu) open as bottom sheets at a higher elevation
+      than the bar.`,
+    person: "/static/images/avatar/5.jpg",
+  },
+  {
+    primary: "Summer BBQ",
+    secondary: `Who wants to have a cookout this weekend? I just got some furniture
+      for my backyard and would love to fire up the grill.`,
+    person: "/static/images/avatar/1.jpg",
+  },
+];

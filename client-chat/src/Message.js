@@ -1,16 +1,16 @@
-import React from "react";
+import { React, useState } from "react";
 import { createStyles, makeStyles, Theme } from "@mui/styles";
 import Avatar from "@mui/material/Avatar";
-import { deepOrange } from 'material-ui/colors';
-
+import { deepOrange } from "material-ui/colors";
+// let  pub = false;
 const useStyles = makeStyles((theme) =>
   createStyles({
     messageRow: {
-      display: "flex"
+      display: "flex",
     },
     messageRowRight: {
       display: "flex",
-      justifyContent: "flex-end"
+      justifyContent: "flex-end",
     },
     messageBlue: {
       position: "relative",
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) =>
         borderLeft: "15px solid transparent",
         borderRight: "15px solid transparent",
         top: "0",
-        left: "-15px"
+        left: "-15px",
       },
       "&:before": {
         content: "''",
@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) =>
         borderLeft: "16px solid transparent",
         borderRight: "16px solid transparent",
         top: "-1px",
-        left: "-17px"
-      }
+        left: "-17px",
+      },
     },
     messageOrange: {
       position: "relative",
@@ -64,28 +64,28 @@ const useStyles = makeStyles((theme) =>
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "15px solid #f8e896",
+        borderBottom: "15px solid #f8e896",
         borderLeft: "15px solid transparent",
         borderRight: "15px solid transparent",
-        top: "0",
-        right: "-15px"
+        bottom: "0",
+        right: "-15px",
       },
       "&:before": {
         content: "''",
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "17px solid #dfd087",
+        borderBottom: "17px solid #dfd087",
         borderLeft: "16px solid transparent",
         borderRight: "16px solid transparent",
-        top: "-1px",
-        right: "-17px"
-      }
+        bottom: "-1px",
+        right: "-17px",
+      },
     },
 
     messageContent: {
       padding: 0,
-      margin: '4px'
+      margin: "4px",
     },
     messageTimeStampRight: {
       position: "absolute",
@@ -93,24 +93,24 @@ const useStyles = makeStyles((theme) =>
       fontWeight: "300",
       marginTop: "15px",
       bottom: "-15px",
-      right: "5px"
+      right: "5px",
     },
 
     orange: {
-      color: 'primary',
+      color: "primary",
       backgroundColor: deepOrange[500],
-      width: '100px',
-      height: '100px'
+      width: "100px",
+      height: "100px",
     },
     avatarNothing: {
       color: "transparent",
       backgroundColor: "transparent",
-      width: '100px',
-      height: '100px'
+      width: "100px",
+      height: "100px",
     },
     displayName: {
-      marginLeft: "20px"
-    }
+      marginLeft: "20px",
+    },
   })
 );
 
@@ -120,9 +120,31 @@ export const MessageLeft = (props) => {
   const photoURL = props.photoURL ? props.photoURL : "";
   const displayName = props.displayName ? props.displayName : "User Name";
   const classes = useStyles();
+  let pub = true;
+  const [publicMessage, setPublicMessage] = useState(pub);
+  // const [group,setPublic] = useState(false)
+  // const [public,setPublic] = useState(false)
+  // const [public,setPublic] = useState(false)
+
   return (
     <>
-      <div className={classes.messageRow}>
+      {
+        publicMessage ? (<div className={classes.messageRow} justifyContent = {pub ? 'flex-center':"flex-end"}>
+          <Avatar
+            alt={displayName}
+            className={classes.orange}
+            src={photoURL}
+          ></Avatar>
+          <div>
+            <div className={classes.displayName}>{displayName}</div>
+            <div className={classes.messageBlue}>
+              <div>
+                <p className={classes.messageContent}>{message}</p>
+                <div className={classes.messageTimeStampRight}>{timestamp}</div>
+              </div>
+            </div>
+          </div>
+        </div>):<div className={classes.messageRow}>
         <Avatar
           alt={displayName}
           className={classes.orange}
@@ -133,11 +155,12 @@ export const MessageLeft = (props) => {
           <div className={classes.messageBlue}>
             <div>
               <p className={classes.messageContent}>{message}</p>
+              <div className={classes.messageTimeStampRight}>{timestamp}</div>
             </div>
-            <div className={classes.messageTimeStampRight}>{timestamp}</div>
           </div>
         </div>
       </div>
+      }
     </>
   );
 };
@@ -145,12 +168,18 @@ export const MessageRight = (props) => {
   const classes = useStyles();
   const message = props.message ? props.message : "no message";
   const timestamp = props.timestamp ? props.timestamp : "";
+  let pub = false;
+  const [publicMessage, setPublicMessage] = useState(pub);
   return (
-    <div className={classes.messageRowRight}>
-      <div className={classes.messageOrange}>
-        <p className={classes.messageContent}>{message}</p>
-        <div className={classes.messageTimeStampRight}>{timestamp}</div>
-      </div>
+    <div>
+      {publicMessage ? null : (
+        <div className={classes.messageRowRight}>
+          <div className={classes.messageOrange}>
+            <p className={classes.messageContent}>{message}</p>
+            <div className={classes.messageTimeStampRight}>{timestamp}</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
