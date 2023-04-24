@@ -23,21 +23,30 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useAuthControl } from "../../Hooks/useAuthControl";
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
-  const handleSubmit = (event) => {
+  const [firstName,setFirstName] = useState('')
+  const [lastName,setLastName] = useState('')
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+  const [phone,setPhone] = useState('')
+  const [Register] = useAuthControl()
+
+  const handleSubmit = async (e) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    // const data = new FormData(event.currentTarget);
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
+    await Register(firstName,lastName,email,password,phone)
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleMouseDownPassword = (e) => {
+    e.preventDefault();
   };
   return (
     <div>
@@ -78,6 +87,7 @@ function SignUp() {
                   label="First Name"
                   name="firstname"
                   autoComplete="text"
+                  onChnage = {e => setFirstName(e.target.value)}
                   autoFocus
                 />
                 <TextField
@@ -89,6 +99,7 @@ function SignUp() {
                   label="Last Name"
                   name="lastname"
                   autoComplete="text"
+                  onChnage = {e => setLastName(e.target.value)}
                   autoFocus
                 />
                 <TextField
@@ -100,6 +111,7 @@ function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChnage = {e => setEmail(e.target.value)}
                   autoFocus
                 />
                 <TextField
@@ -112,6 +124,7 @@ function SignUp() {
                 autoComplete="tel"
                 type = 'tel'
                 pattern="[0-9]{10}"
+                onChnage = {e => setPhone(e.target.value)}
                 autoFocus
               />
                 <FormControl fullWidth variant="outlined" required>
@@ -121,6 +134,7 @@ function SignUp() {
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? "text" : "password"}
+                    onChnage = {e => setPassword(e.target.value)}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton

@@ -23,15 +23,22 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useAuthControl } from "../../Hooks/useAuthControl";
+
+
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const handleSubmit = (event) => {
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+  const {Login} = useAuthControl()
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    // const data = new FormData(event.currentTarget);
+    // const email = data.get('email')
+    // const password = data.get('password')
+    await Login(email,password)
+
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -77,6 +84,7 @@ function Login() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange = {event => setEmail(event.target.value)}
                   autoFocus
                 />
                 <FormControl fullWidth variant="outlined" required>
@@ -86,6 +94,7 @@ function Login() {
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? "text" : "password"}
+                    onChange = {event => setPassword(event.target.value)}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
