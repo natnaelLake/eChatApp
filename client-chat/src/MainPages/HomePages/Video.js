@@ -55,7 +55,7 @@ export default function Video() {
       <Box sx={{ pb: 7 }} ref={ref}>
         <CssBaseline />
         <div>
-          <Home />
+          {/* <Home /> */}
           { value === 0 && 
             (<>
               <Box align="center">

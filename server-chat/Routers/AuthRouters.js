@@ -13,21 +13,26 @@ const handleError = (error) => {
     phone: "",
     error: "",
   };
-  if (error.code === 11000) {
-    errors["error"] = "User is Already Exist";
-    return errors;
-  }
   if (error.message === "Incorrect Email") {
-    errors["email"] = "Incorrect Email";
+    errors["email"] = "You are not registered";
   }
   if (error.message === "Incorrect Password") {
     errors["password"] = "Incorrect Password";
+  }
+  if (error.message === "Enter Email") {
+    errors["email"] = "Fill Email Field";
+  }
+  if (error.message === "Enter Password") {
+    errors["password"] = "Fill Password Field";
+  }
+  if (error.code === 11000) {
+    errors.error= "User is Already Registered";
+    return errors;
   }
   if (error.message.includes("User validation failed")) {
     Object.values(error.errors).forEach(({ properties }) => {
       errors[properties.path] = properties.message;
     });
-    console.log(errors);
   }
   return errors;
   // console.log('error code is :',error)
@@ -40,28 +45,28 @@ const createToken = (id) => {
   return token;
 };
 const signup = async (req, res) => {
-  // const {firstName,lastName,email,phone,password} = req.body
   try {
-    const savedUser = await User.create({
+    const user = await User.create({
       ...req.body,
     });
-    const token = createToken(savedUser._id);
-    // console.log('token is',token)
-    res.status(200).json({ savedUser, token });
+    console.log(user)
+    const token = createToken(user._id);
+    res.status(200).json({user, token});
   } catch (error) {
     const errors = handleError(error);
-    res.status(400).json(errors);
+    res.status(401).json(errors);
   }
 };
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const loginData = await User.login(email, password);
-    const token = createToken(loginData._id);
-    res.status(200).json({ loginData, token });
+    const user = await User.login(email, password);
+    const token = createToken(user._id);
+    res.status(200).json({user, token});
   } catch (err) {
+    console.log(err)
     const errors = handleError(err);
-    res.status(400).json({ errors });
+    res.status(400).json(errors);
   }
 };
 

@@ -13,8 +13,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { Avatar, Tab, Tabs } from "@mui/material";
 import Home from "../Home";
-import { Avatar, Grid } from "@mui/material";
 import imageOne from "../../Assets/pexels-ali-pazani-2681751 (1).jpg";
 import imageTwo from "../../Assets/pexels-ali-pazani-2681751.jpg";
 import imageThree from "../../Assets/pexels-chris-hepworth-16047551.jpg";
@@ -25,29 +25,29 @@ import imageSeven from "../../Assets/pexels-максим-11896928.jpg";
 import imageEight from "../../Assets/pexels-pixabay-413885.jpg";
 import imageNine from "../../Assets/pexels-mirco-violent-blur-4033244.jpg";
 import imageTen from "../../Assets/pexels-pixabay-247298.jpg";
-import Chat from "../../Chats/Chat";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import { createStyles, makeStyles, Theme } from "@mui/styles";
 import { Paper, Stack } from "@mui/material";
 import { TextInput } from "../../TextInput.js";
 import { MessageLeft, MessageRight } from "../../Message";
+import { useAuth } from "../../Hooks/useAuth";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     paper: {
-      width: "80vw",
-      height: "80vh",
-      maxWidth: "500px",
-      maxHeight: "700px",
+      width: "100%",
+      height: "100%",
+      // maxWidth: "500px",
+      // maxHeight: "700px",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
       position: "relative",
     },
     paper2: {
-      width: "80vw",
-      maxWidth: "500px",
+      width: "100%",
+      // maxWidth: "500px",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
@@ -61,13 +61,14 @@ const useStyles = makeStyles((theme) =>
       justifyContent: "center",
     },
     messagesBody: {
-      width: "calc( 100% - 20px )",
-      margin: 10,
+      width: "calc( 100% )",
+      // margin: 10,
       overflowY: "scroll",
-      height: "calc( 100% - 80px )",
+      height: "calc( 100% )",
     },
   })
 );
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#44b700",
@@ -95,6 +96,12 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
       opacity: 0,
     },
   },
+}));
+
+const SmallAvatar = styled(Avatar)(({ theme }) => ({
+  width: 22,
+  height: 22,
+  border: `2px solid ${theme.palette.background.paper}`,
 }));
 
 const drawerWidth = 240;
@@ -176,29 +183,30 @@ const data = {
 };
 function Private() {
   const classes = useStyles();
-
+  const [active, setActive] = React.useState("");
+  const {user} = useAuth()
   return (
     <div>
-      <Home />
+      {/* <Home /> */}
       <Stack direction='row' >
-        <Stack>
+        <Stack sx ={{width:'20%'}}>
           <CssBaseline />
           <Drawer
             variant="permanent"
             sx={{
-              width: drawerWidth,
+              width: '20%',
               flexShrink: 0,
               [`& .MuiDrawer-paper`]: {
-                width: drawerWidth,
+                width: '20%',
                 boxSizing: "border-box",
               },
             }}
           >
             <Toolbar />
-            <Box sx={{ overflow: "auto" }}>
+            <Box sx={{ overflow: "auto" }}> 
               <List>
                 {data.data !==null ?  data.data.map((text, index) => (
-                  <ListItem key={text.title} disablePadding>
+                  <ListItem key={index} disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
                         <Stack direction="row" spacing={2}>
@@ -235,17 +243,30 @@ function Private() {
             </Box>
           </Drawer>
         </Stack>
-        <Stack sx = {{height:'100vh'}}>
-            <Paper id="style-1" className={classes.messagesBody} sx = {{height:'100vh'}}>
-              <Stack spacing={2} sx = {{marginTop:'100px'}}>
-                <Stack >
+        <Stack sx = {{height: "76vh",width:'100%' }} >
+            <Stack id="style-1" className={classes.messagesBody} >
+              <Stack spacing={2} sx = {{margin:'10px'}}>
+                <Stack  justifyContent="center">
+                   <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  />
                   <MessageLeft
                     message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
                     timestamp="MM/DD 00:00"
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
                     displayName=""
                     avatarDisp={true}
-                    sx={{ width: "300px" }}
                   />
                   <MessageLeft
                     message="welcome to nodejs"
@@ -254,35 +275,56 @@ function Private() {
                     displayName="Use One"
                     avatarDisp={true}
                   />
-                </Stack>
-                <Stack
-                  justifyContent="end"
-                  sx={{ display: "flex", float: "right" }}
-                  align="right"
-                  className="rightStack"
-                >
-                  <MessageRight
+                  <MessageLeft
                     message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
                     timestamp="MM/DD 00:00"
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                    displayName="User Two"
+                    displayName=""
                     avatarDisp={true}
                   />
-                  <MessageRight
-                    message="Welcome to MongoDb"
+                  <MessageLeft
+                    message="welcome to nodejs"
                     timestamp="MM/DD 00:00"
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                    displayName="User Three"
+                    displayName="Use One"
                     avatarDisp={true}
                   />
-                </Stack>
-                <Stack sx={{ marginTop: "40px" }}>
-                  <TextInput />
+                  <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="welcome to nodejs"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="welcome to nodejs"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  /> 
                 </Stack>
               </Stack>
-            </Paper>
+            </Stack>
+                <Stack sx = {{}}>
+                  <TextInput />
+                </Stack>
         </Stack>
-      </Stack>
+      </Stack> 
     </div>
   );
 }

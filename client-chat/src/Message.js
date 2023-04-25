@@ -129,10 +129,10 @@ export const MessageLeft = (props) => {
   return (
     <>
       {
-        publicMessage ? (<div className={classes.messageRow} justifyContent = {pub ? 'flex-center':"flex-end"}>
+        publicMessage ? (<div className={classes.messageRow} >
           <Avatar
             alt={displayName}
-            className={classes.orange}
+            // className={classes.orange}
             src={photoURL}
           ></Avatar>
           <div>
@@ -145,11 +145,6 @@ export const MessageLeft = (props) => {
             </div>
           </div>
         </div>):<div className={classes.messageRow}>
-        <Avatar
-          alt={displayName}
-          className={classes.orange}
-          src={photoURL}
-        ></Avatar>
         <div>
           <div className={classes.displayName}>{displayName}</div>
           <div className={classes.messageBlue}>

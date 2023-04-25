@@ -11,10 +11,9 @@ const useStyles = makeStyles((theme) =>
       justifyContent: "center",
       flex: 1,
       justifyContent: "flex-end",
-      marginBottom: 36,
-      width: "95%",
-      margin: `20px auto`,
-      marginTop: "50px",
+      width: "100%",
+      // margin: `20px auto`,
+      // marginTop: "50px",
     },
     wrapText: {
       width: "100%",

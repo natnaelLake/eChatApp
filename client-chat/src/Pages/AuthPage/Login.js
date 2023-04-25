@@ -25,20 +25,18 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useAuthControl } from "../../Hooks/useAuthControl";
 
-
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
-  const {Login} = useAuthControl()
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { Login,errorData} = useAuthControl();
+  const {emailError,passwordError,error} = errorData
   const handleSubmit = async (event) => {
     event.preventDefault();
     // const data = new FormData(event.currentTarget);
     // const email = data.get('email')
     // const password = data.get('password')
-    await Login(email,password)
-
+    await Login(email, password);
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -46,6 +44,7 @@ function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  // console.log('email error is : ',emailError)
   return (
     <div>
       <Card
@@ -63,7 +62,7 @@ function Login() {
                 flexDirection: "column",
                 alignItems: "center",
               }}
-            >
+            >              
               <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
                 <PersonIcon />
               </Avatar>
@@ -84,17 +83,17 @@ function Login() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  onChange = {event => setEmail(event.target.value)}
-                  autoFocus
+                  onChange={(event) => setEmail(event.target.value)}
                 />
+                {emailError !== '' && <Typography sx = {{paddingLeft:2}}color = 'error'>{emailError}</Typography>}
                 <FormControl fullWidth variant="outlined" required>
-                  <InputLabel htmlFor="outlined-adornment-password" >
+                  <InputLabel htmlFor="outlined-adornment-password">
                     Password
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? "text" : "password"}
-                    onChange = {event => setPassword(event.target.value)}
+                    onChange={(event) => setPassword(event.target.value)}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -109,10 +108,15 @@ function Login() {
                     }
                     label="Password"
                   />
+                {passwordError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{passwordError}</Typography>}
                 </FormControl>
                 <br />
                 <br />
-                <Grid container style={{ justifyContent: "center" }} textAlign = 'center'>
+                <Grid
+                  container
+                  style={{ justifyContent: "center" }}
+                  textAlign="center"
+                >
                   <Grid item xs>
                     <Link href="/signup" variant="body2">
                       Create Account?
@@ -121,7 +125,9 @@ function Login() {
                 </Grid>
                 <br />
                 <Box textAlign="center">
-                  <Button variant="outlined" color = 'secondary' type = 'submit' href = '/'>Login</Button>
+                  <Button variant="outlined" color="secondary" type="submit">
+                    Login
+                  </Button>
                 </Box>
                 <Grid container style={{ justifyContent: "center" }}>
                   <Grid item xs>

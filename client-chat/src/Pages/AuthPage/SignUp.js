@@ -26,13 +26,21 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useAuthControl } from "../../Hooks/useAuthControl";
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
-  const [firstName,setFirstName] = useState('')
-  const [lastName,setLastName] = useState('')
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
-  const [phone,setPhone] = useState('')
-  const [Register] = useAuthControl()
-
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const { Register, errorData } = useAuthControl();
+  const {
+    firstNameError,
+    lastNameError,
+    emailError,
+    passwordError,
+    phoneError,
+    error,
+  } = errorData;
+// console.log('errors are: ',errorData)
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const data = new FormData(event.currentTarget);
@@ -40,7 +48,7 @@ function SignUp() {
     //   email: data.get("email"),
     //   password: data.get("password"),
     // });
-    await Register(firstName,lastName,email,password,phone)
+    await Register(firstName, lastName, email, password, phone);
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -51,7 +59,7 @@ function SignUp() {
   return (
     <div>
       <Card
-        style={{ width: "20rem", marginTop: "8rem" ,marginBottom:'3rem'}}
+        style={{ width: "20rem", marginTop: "8rem", marginBottom: "3rem" }}
         bg="light"
         className="shadow mx-auto "
       >
@@ -66,6 +74,7 @@ function SignUp() {
                 alignItems: "center",
               }}
             >
+                {error !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{error}</Typography>}
               <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
                 <PersonIcon />
               </Avatar>
@@ -82,59 +91,63 @@ function SignUp() {
                   margin="normal"
                   required
                   fullWidth
-                  type = 'text'
+                  type="text"
                   id="FirstName"
                   label="First Name"
                   name="firstname"
                   autoComplete="text"
-                  onChnage = {e => setFirstName(e.target.value)}
+                  onChange={(e) => setFirstName(e.target.value)}
                   autoFocus
                 />
+                {firstNameError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{firstNameError}</Typography>}
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  type = 'text'
+                  type="text"
                   id="lasName"
                   label="Last Name"
                   name="lastname"
                   autoComplete="text"
-                  onChnage = {e => setLastName(e.target.value)}
+                  onChange={(e) => setLastName(e.target.value)}
                   autoFocus
                 />
+                {lastNameError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{lastNameError}</Typography>}
                 <TextField
                   margin="normal"
-                  type = 'email'
+                  type="email"
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  onChnage = {e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   autoFocus
                 />
+                {emailError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{emailError}</Typography>}
                 <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="phone"
-                label="Phone Number"
-                name="phone"
-                autoComplete="tel"
-                type = 'tel'
-                pattern="[0-9]{10}"
-                onChnage = {e => setPhone(e.target.value)}
-                autoFocus
-              />
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone Number"
+                  name="phone"
+                  autoComplete="tel"
+                  type="tel"
+                  pattern="[0-9]{10}"
+                  onChange={(e) => setPhone(e.target.value)}
+                  autoFocus
+                />
+                {phoneError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{phoneError}</Typography>}
                 <FormControl fullWidth variant="outlined" required>
-                  <InputLabel htmlFor="outlined-adornment-password" >
+                  <InputLabel htmlFor="outlined-adornment-password">
                     Password
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? "text" : "password"}
-                    onChnage = {e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -149,19 +162,30 @@ function SignUp() {
                     }
                     label="Password"
                   />
+                {passwordError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{passwordError}</Typography>}
                 </FormControl>
                 <br />
                 <br />
-                <Grid container style={{ justifyContent: "center" }} textAlign = 'center'>
+                <Grid
+                  container
+                  style={{ justifyContent: "center" }}
+                  textAlign="center"
+                >
                   <Grid item xs>
-                    <Link href="/signup" variant="body2">
-                      Create Account?
+                    <Link href="/login" variant="body2">
+                      Have an Account?
                     </Link>
                   </Grid>
                 </Grid>
                 <br />
                 <Box textAlign="center">
-                  <Button variant="outlined" color = 'secondary' type = 'submit' href = 'www.google.com'>My button</Button>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    type="submit"
+                  >
+                    Register
+                  </Button>
                 </Box>
                 <Grid container style={{ justifyContent: "center" }}>
                   <Grid item xs>
