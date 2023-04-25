@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export const useAuthControl = () => {
   const [error,setError] = useState('')
-  const Login = async (email,passowrd)=>{
+  const Login = async (email,password)=>{
     const loginData = {email,password}
     const users = await axios.post('http://locahost:3001/login',loginData);
     console.log(users)

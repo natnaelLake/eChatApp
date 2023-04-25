@@ -34,7 +34,7 @@ function SignUp() {
   const [Register] = useAuthControl()
 
   const handleSubmit = async (e) => {
-    event.preventDefault();
+    e.preventDefault();
     // const data = new FormData(event.currentTarget);
     // console.log({
     //   email: data.get("email"),
