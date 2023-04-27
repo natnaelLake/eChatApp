@@ -44,6 +44,10 @@ export const useAuthControl = () => {
       setError(error.response.data.error)
     }
   };
+  const logout = ()=>{
+    localStorage.removeItem('user');
+    dispatch({type:'LOGOUT'})
+  }
   const errorData = {
     firstNameError,
     lastNameError,
@@ -55,6 +59,7 @@ export const useAuthControl = () => {
   return {
     Login,
     Register,
-    errorData
+    errorData,
+    logout
   };
 };

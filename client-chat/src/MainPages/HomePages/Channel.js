@@ -222,7 +222,7 @@ function Channel() {
                           </StyledBadge>
                         </Stack>
                       </ListItemIcon>
-                      <ListItemText primary={text.title} />
+                      <ListItemText primary={text.title} secondary = 'welcome welcome '/>
                     </ListItemButton>
                   </ListItem>
                 )):null}
@@ -246,7 +246,7 @@ function Channel() {
         <Stack sx = {{height: "76vh",width:'100%' }} >
             <Stack id="style-1" className={classes.messagesBody} >
               <Stack spacing={2} sx = {{margin:'10px'}}>
-                <Stack  justifyContent="center">
+                <Stack  justifyContent="center" spacing = {2}>
                    <MessageLeft
                     message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
                     timestamp="MM/DD 00:00"
@@ -289,28 +289,28 @@ function Channel() {
                     displayName="Use One"
                     avatarDisp={true}
                   />
-                  <MessageLeft
+                  <MessageRight
                     message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
                     timestamp="MM/DD 00:00"
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
                     displayName=""
                     avatarDisp={true}
                   />
-                  <MessageLeft
+                  <MessageRight
                     message="welcome to nodejs"
                     timestamp="MM/DD 00:00"
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
                     displayName="Use One"
                     avatarDisp={true}
                   />
-                  <MessageLeft
+                  <MessageRight
                     message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
                     timestamp="MM/DD 00:00"
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
                     displayName=""
                     avatarDisp={true}
                   />
-                  <MessageLeft
+                  <MessageRight
                     message="welcome to nodejs"
                     timestamp="MM/DD 00:00"
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"

@@ -12,7 +12,20 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import GroupsIcon from "@mui/icons-material/Groups";
+import Diversity1Icon from "@mui/icons-material/Diversity1";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import SecurityIcon from "@mui/icons-material/Security";
+import LogoutIcon from "@mui/icons-material/Logout";
 import imageOne from "../Assets/pexels-ali-pazani-2681751 (1).jpg";
 import imageTwo from "../Assets/pexels-ali-pazani-2681751.jpg";
 import imageThree from "../Assets/pexels-chris-hepworth-16047551.jpg";
@@ -24,7 +37,7 @@ import imageEight from "../Assets/pexels-pixabay-413885.jpg";
 import imageNine from "../Assets/pexels-mirco-violent-blur-4033244.jpg";
 import imageTen from "../Assets/pexels-pixabay-247298.jpg";
 import MuiThemeProvider from "@mui/material/styles/ThemeProvider";
-import { Tabs, Tab, Stack } from "@mui/material";
+import { Tabs, Tab, Stack, TextField, CssBaseline } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Group from "./HomePages/Group";
 import Channel from "./HomePages/Channel";
@@ -32,9 +45,18 @@ import Public from "./HomePages/Public";
 import Private from "./HomePages/Private";
 import Video from "./HomePages/Video";
 import { useAuth } from "../Hooks/useAuth";
+import { useAuthControl } from "../Hooks/useAuthControl";
+import { useNavigate } from "react-router-dom";
+import { Form, Modal } from "react-bootstrap";
 
 const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  "Create Channel",
+  "Create Group",
+  "Manage Profile",
+  "Privacy and Security",
+  "Logout",
+];
 
 const useTabStyles = makeStyles({
   root: {
@@ -52,24 +74,82 @@ function Home() {
   const [active, setActive] = React.useState(navTabs[0]);
   const classes = useTabStyles();
   const { user } = useAuth();
+  const [state, setState] = React.useState({
+    right: false,
+  });
+  const [show, setShow] = React.useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const navigate = useNavigate();
+  const { logout } = useAuthControl();
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
 
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["All mail", "Trash", "Spam"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  // const handleOpenUserMenu = (event) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
 
+  const handleSetting = () => {
+    alert("welcome ");
+  };
+  const handleLogout = async () => {
+    await logout();
+    // navigate('/')
+  };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  const handleOnclick = () => {
-    setClicked(!clicked);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
+  // const handleOnclick = () => {
+  //   setClicked(!clicked);
+  // };
 
   return (
     <>
@@ -137,7 +217,7 @@ function Home() {
                     indicatorColor="secondary"
                     textColor="inherit"
                     variant={"scrollable"}
-                    scrollButtons='auto'
+                    scrollButtons="auto"
                     orientation="vertical"
                   >
                     {navTabs.map((city, index) => (
@@ -182,7 +262,7 @@ function Home() {
                 indicatorColor="secondary"
                 textColor="inherit"
                 variant={"scrollable"}
-                scrollButtons='auto'
+                scrollButtons="auto"
               >
                 {navTabs.map((city, index) => (
                   <Tab key={index} label={city} value={city} />
@@ -190,41 +270,172 @@ function Home() {
               </Tabs>
             </Box>
             <Box sx={{ flexGrow: 0 }}>
-              <Stack spacing={1} direction = 'row'>
-                <Stack spacing = {1} direction = 'row'>
-                  <Typography sx = {{paddingTop:2}} >{user.user.firstName}&nbsp;&nbsp;{user.user.lastName}</Typography>
+              <Stack spacing={1} direction="row">
+                <Stack spacing={1} direction="row">
+                  <Typography sx={{ paddingTop: 2 }}>
+                    {user.user.firstName}&nbsp;&nbsp;{user.user.lastName}
+                  </Typography>
                   {/* <Typography sx = {{paddingTop:2}} ></Typography> */}
                 </Stack>
                 <Stack>
                   <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <IconButton
+                      onClick={toggleDrawer("right", true)}
+                      sx={{ p: 0 }}
+                    >
                       <Avatar alt={user.user.firstName} src={user.user.pic} />
                     </IconButton>
                   </Tooltip>
                 </Stack>
+                {/* <Button onClick={toggleDrawer('right', true)}>{'right'}</Button> */}
+                <Drawer
+                  anchor="right"
+                  open={state["right"]}
+                  onClose={toggleDrawer("right", false)}
+                >
+                  <Box
+                    role="presentation"
+                    onClick={toggleDrawer("right", false)}
+                    onKeyDown={toggleDrawer("right", false)}
+                  >
+                    <List sx={{ marginTop: "50px" }}>
+                      {/* {settings.map((setting,index) => ( */}
+                      <ListItem key={1} onClick={handleShow}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <Diversity1Icon />
+                          </ListItemIcon>
+                          <ListItemText primary={"Creat Channel"} />
+                        </ListItemButton>
+                      </ListItem>
+                      <ListItem key={2} onClick={handleShow}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <GroupsIcon />
+                          </ListItemIcon>
+                          <ListItemText primary={"Create Group"} />
+                        </ListItemButton>
+                      </ListItem>
+                      <ListItem key={2} onClick={handleShow}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <ManageAccountsIcon />
+                          </ListItemIcon>
+                          <ListItemText primary={"Manage Profile"} />
+                        </ListItemButton>
+                      </ListItem>
+                      <ListItem key={3} onClick={handleShow}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <SecurityIcon />
+                          </ListItemIcon>
+                          <ListItemText primary={"Security And Privacy"} />
+                        </ListItemButton>
+                      </ListItem>
+                      <ListItem key={4} onClick={handleLogout}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <LogoutIcon />
+                          </ListItemIcon>
+                          <ListItemText primary={"Logout"} />
+                        </ListItemButton>
+                      </ListItem>
+                      {/* ))} */}
+                    </List>
+                  </Box>
+                </Drawer>
               </Stack>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+              {/*  */}
+              {/* <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button> */}
+
+              <Modal show={show} onHide={handleClose} centered>
+                <Modal.Header closeButton>
+                  <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                      sx={{
+                        // marginTop: 8,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      {/* <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+                        <PersonIcon />
+                      </Avatar> */}
+                      <Typography component="h1" variant="h5">
+                        Sign in
+                      </Typography>
+                      <Box
+                        component="form"
+                        // onSubmit={handleSubmit}
+                        noValidate
+                        sx={{ mt: 1 }}
+                      >
+                      
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="email"
+                          label="Email Address"
+                          name="email"
+                          autoComplete="email"
+                          // onChange={(event) => setEmail(event.target.value)}
+                        />
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="email"
+                          label="Email Address"
+                          name="email"
+                          autoComplete="email"
+                          // onChange={(event) => setEmail(event.target.value)}
+                        />
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="email"
+                          label="Email Address"
+                          name="email"
+                          autoComplete="email"
+                          // onChange={(event) => setEmail(event.target.value)}
+                        />
+                        
+                        <Box textAlign="center">
+                          <Button
+                            variant="outlined"
+                            color="secondary"
+                            type="submit"
+                          >
+                            Login
+                          </Button>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Container>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleClose}
+                  >
+                    Close
+                  </Button>
+                  &nbsp;&nbsp;&nbsp;
+                  <Button variant="contained" onClick={handleClose}>
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </Box>
           </Toolbar>
         </Container>

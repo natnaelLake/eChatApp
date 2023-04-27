@@ -17,16 +17,15 @@ function Routers() {
     <div>
         <Router>
             <Routes>
-                <Route exact path='/' element = {user ? <Home/> : <Login/>}></Route>
-                <Route path= {user ? '/':'/login'} element = {!user ? <Login/>:<Home/>}></Route>
+                <Route exact path='/'element = {user ? <Home/> : <Login/>}></Route>
+                <Route path= '/login' element = {!user ? <Login/>:<Home/>}></Route>
                 <Route path={user ? '/':'/signup'} element = {!user ? <SignUp/>:<Home/>}></Route>
-                <Route path='/channel' element = {user ? <Channel/>:<Login/>}></Route>
-                <Route path='/group' element = {user ? <Group/> : <Login/>}></Route>
-                <Route path='/private' element = {user ? <Private/>:<Login/>}></Route>
-                <Route path='/public' element = {user ? <Public/>:<Login/>}></Route>
-                <Route path='/video' element = {user ? <Video/>:<Login/>}></Route>
-                <Route path='/signup' element = {!user ? <SignUp/> : <Home/>}></Route>
-                <Route path = '/chat' element = {user ? <Chat/> : <Login/>}></Route>
+                <Route path={user ? '/channel':'/login'} element = {user ? <Channel/>:<Login/>}></Route>
+                <Route path={user ? '/group':'/login'} element = {user ? <Group/> : <Login/>}></Route>
+                <Route path={user ? '/private':'/login'} element = {user ? <Private/>:<Login/>}></Route>
+                <Route path={user ? '/public':'/login'} element = {user ? <Public/>:<Login/>}></Route>
+                <Route path={user ? '/video':'/login'} element = {user ? <Video/>:<Login/>}></Route>
+                <Route path = {user ? '/chat':'/login'} element = {user ? <Chat/> : <Login/>}></Route>
             </Routes>
         </Router>
     </div>
