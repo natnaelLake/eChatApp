@@ -184,50 +184,48 @@ const data = {
 function Public() {
   const classes = useStyles();
   const [active, setActive] = React.useState("");
-  const { user } = useAuth();
+  const {user} = useAuth()
   return (
     <div>
       {/* <Home /> */}
-      <Stack direction="row">
-        <Stack sx={{ width: "20%" }}>
+      <Stack direction='row' >
+        <Stack sx ={{width:'20%'}}>
           <CssBaseline />
           <Drawer
             variant="permanent"
             sx={{
-              width: "20%",
+              width: '20%',
               flexShrink: 0,
               [`& .MuiDrawer-paper`]: {
-                width: "20%",
+                width: '20%',
                 boxSizing: "border-box",
               },
             }}
           >
             <Toolbar />
-            <Box sx={{ overflow: "auto" }}>
+            <Box sx={{ overflow: "auto" }}> 
               <List>
-                {data.data !== null
-                  ? data.data.map((text, index) => (
-                      <ListItem key={index} disablePadding>
-                        <ListItemButton>
-                          <ListItemIcon>
-                            <Stack direction="row" spacing={2}>
-                              <StyledBadge
-                                overlap="circular"
-                                anchorOrigin={{
-                                  vertical: "bottom",
-                                  horizontal: "right",
-                                }}
-                                variant="dot"
-                              >
-                                <Avatar alt="User One" src={text.image} />
-                              </StyledBadge>
-                            </Stack>
-                          </ListItemIcon>
-                          <ListItemText primary={text.title} />
-                        </ListItemButton>
-                      </ListItem>
-                    ))
-                  : null}
+                {data.data !==null ?  data.data.map((text, index) => (
+                  <ListItem key={index} disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <Stack direction="row" spacing={2}>
+                          <StyledBadge
+                            overlap="circular"
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            variant="dot"
+                          >
+                            <Avatar alt="User One" src={text.image} />
+                          </StyledBadge>
+                        </Stack>
+                      </ListItemIcon>
+                      <ListItemText primary={text.title} secondary = 'welcome welcome '/>
+                    </ListItemButton>
+                  </ListItem>
+                )):null}
               </List>
               <Divider />
               <List>
@@ -245,88 +243,88 @@ function Public() {
             </Box>
           </Drawer>
         </Stack>
-        <Stack sx={{ height: "76vh", width: "100%" }}>
-          <Stack id="style-1" className={classes.messagesBody}>
-            <Stack spacing={2} sx={{ margin: "10px" }}>
-              <Stack justifyContent="center">
-                <MessageLeft
-                  message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName=""
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName="Use One"
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName=""
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="welcome to nodejs"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName="Use One"
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName=""
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="welcome to nodejs"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName="Use One"
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName=""
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="welcome to nodejs"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName="Use One"
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName=""
-                  avatarDisp={true}
-                />
-                <MessageLeft
-                  message="welcome to nodejs"
-                  timestamp="MM/DD 00:00"
-                  photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                  displayName="Use One"
-                  avatarDisp={true}
-                />
+        <Stack sx = {{height: "76vh",width:'100%' }} >
+            <Stack id="style-1" className={classes.messagesBody} >
+              <Stack spacing={2} sx = {{margin:'10px'}}>
+                <Stack  justifyContent="center" spacing = {2}>
+                   <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="welcome to nodejs"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                  />
+                  <MessageLeft
+                    message="welcome to nodejs"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  />
+                  <MessageRight
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                  />
+                  <MessageRight
+                    message="welcome to nodejs"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  />
+                  <MessageRight
+                    message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName=""
+                    avatarDisp={true}
+                  />
+                  <MessageRight
+                    message="welcome to nodejs"
+                    timestamp="MM/DD 00:00"
+                    photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    displayName="Use One"
+                    avatarDisp={true}
+                  /> 
+                </Stack>
               </Stack>
             </Stack>
-          </Stack>
-          <Stack sx={{}}>
-            <TextInput />
-          </Stack>
+                <Stack sx = {{}}>
+                  <TextInput />
+                </Stack>
         </Stack>
-      </Stack>
+      </Stack> 
     </div>
   );
 }
