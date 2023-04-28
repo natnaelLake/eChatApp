@@ -37,7 +37,18 @@ import imageEight from "../Assets/pexels-pixabay-413885.jpg";
 import imageNine from "../Assets/pexels-mirco-violent-blur-4033244.jpg";
 import imageTen from "../Assets/pexels-pixabay-247298.jpg";
 import MuiThemeProvider from "@mui/material/styles/ThemeProvider";
-import { Tabs, Tab, Stack, TextField, CssBaseline } from "@mui/material";
+import {
+  Tabs,
+  Tab,
+  Stack,
+  TextField,
+  CssBaseline,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Group from "./HomePages/Group";
 import Channel from "./HomePages/Channel";
@@ -48,15 +59,53 @@ import { useAuth } from "../Hooks/useAuth";
 import { useAuthControl } from "../Hooks/useAuthControl";
 import { useNavigate } from "react-router-dom";
 import { Form, Modal } from "react-bootstrap";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = [
-  "Create Channel",
-  "Create Group",
-  "Manage Profile",
-  "Privacy and Security",
-  "Logout",
+
+import FormControl from "@mui/material/FormControl";
+import { useTheme } from "@mui/material/styles";
+import Select from "@mui/material/Select";
+import Chip from "@mui/material/Chip";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+const names = [
+  "Oliver Hansen",
+  "Van Henry",
+  "April Tucker",
+  "Ralph Hubbard",
+  "Omar Alexander",
+  "Carlos Abbott",
+  "Miriam Wagner",
+  "Bradley Wilkerson",
+  "Virginia Andrews",
+  "Kelly Snyder",
 ];
+// const pages = ["Products", "Pricing", "Blog"];
+// const settings = [
+//   "Create Channel",
+//   "Create Group",
+//   "Manage Profile",
+//   "Privacy and Security",
+//   "Logout",
+// ];
 
 const useTabStyles = makeStyles({
   root: {
@@ -69,17 +118,36 @@ const useTabStyles = makeStyles({
 const navTabs = ["Channels", "Groups", "Public", "Private", "Video"];
 function Home() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [clicked, setClicked] = React.useState(true);
   const [active, setActive] = React.useState(navTabs[0]);
   const classes = useTabStyles();
   const { user } = useAuth();
   const [state, setState] = React.useState({
     right: false,
   });
-  const [show, setShow] = React.useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [channel, setChannel] = React.useState(false);
+  const [group, setGroup] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState("paper");
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
+  const handleChannel = () => {
+    setChannel(true);
+    setGroup(false);
+  };
+  const handleGroup = () => {
+    setChannel(false);
+    setGroup(true);
+  };
   const navigate = useNavigate();
   const { logout } = useAuthControl();
   const toggleDrawer = (anchor, open) => (event) => {
@@ -93,64 +161,30 @@ function Home() {
     setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor) => (
-    <Box
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+  const theme = useTheme();
+  const [personName, setPersonName] = React.useState([]);
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
-
   const handleSetting = () => {
-    alert("welcome ");
+    navigate('/settings')
   };
   const handleLogout = async () => {
     await logout();
-    // navigate('/')
   };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
-  // const handleOnclick = () => {
-  //   setClicked(!clicked);
-  // };
-
   return (
     <>
       <AppBar
@@ -275,7 +309,6 @@ function Home() {
                   <Typography sx={{ paddingTop: 2 }}>
                     {user.user.firstName}&nbsp;&nbsp;{user.user.lastName}
                   </Typography>
-                  {/* <Typography sx = {{paddingTop:2}} ></Typography> */}
                 </Stack>
                 <Stack>
                   <Tooltip title="Open settings">
@@ -287,7 +320,6 @@ function Home() {
                     </IconButton>
                   </Tooltip>
                 </Stack>
-                {/* <Button onClick={toggleDrawer('right', true)}>{'right'}</Button> */}
                 <Drawer
                   anchor="right"
                   open={state["right"]}
@@ -299,8 +331,7 @@ function Home() {
                     onKeyDown={toggleDrawer("right", false)}
                   >
                     <List sx={{ marginTop: "50px" }}>
-                      {/* {settings.map((setting,index) => ( */}
-                      <ListItem key={1} onClick={handleShow}>
+                      <ListItem key={1} onClick={handleChannel}>
                         <ListItemButton>
                           <ListItemIcon>
                             <Diversity1Icon />
@@ -308,7 +339,7 @@ function Home() {
                           <ListItemText primary={"Creat Channel"} />
                         </ListItemButton>
                       </ListItem>
-                      <ListItem key={2} onClick={handleShow}>
+                      <ListItem key={2} onClick={handleGroup}>
                         <ListItemButton>
                           <ListItemIcon>
                             <GroupsIcon />
@@ -316,7 +347,7 @@ function Home() {
                           <ListItemText primary={"Create Group"} />
                         </ListItemButton>
                       </ListItem>
-                      <ListItem key={2} onClick={handleShow}>
+                      <ListItem key={2} onClick={handleSetting}>
                         <ListItemButton>
                           <ListItemIcon>
                             <ManageAccountsIcon />
@@ -324,7 +355,7 @@ function Home() {
                           <ListItemText primary={"Manage Profile"} />
                         </ListItemButton>
                       </ListItem>
-                      <ListItem key={3} onClick={handleShow}>
+                      <ListItem key={3} onClick={handleChannel}>
                         <ListItemButton>
                           <ListItemIcon>
                             <SecurityIcon />
@@ -340,102 +371,219 @@ function Home() {
                           <ListItemText primary={"Logout"} />
                         </ListItemButton>
                       </ListItem>
-                      {/* ))} */}
                     </List>
                   </Box>
                 </Drawer>
               </Stack>
-              {/*  */}
-              {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
-              <Modal show={show} onHide={handleClose} centered>
-                <Modal.Header closeButton>
-                  <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Container component="main" maxWidth="xs">
-                    <CssBaseline />
+              <Dialog
+                open={channel}
+                onClose={handleClose}
+                scroll={scroll}
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+              >
+                <DialogTitle id="scroll-dialog-title">
+                  Create Channel
+                </DialogTitle>
+                <DialogContent dividers={scroll === "paper"}>
+                  
+                  <Box
+                    sx={{
+                      marginTop: 8,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    
+                    <Typography component="h1" variant="h5">
+                      Sign Up
+                    </Typography>
                     <Box
-                      sx={{
-                        // marginTop: 8,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                      }}
-                    >
-                      {/* <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                        <PersonIcon />
-                      </Avatar> */}
-                      <Typography component="h1" variant="h5">
-                        Sign in
-                      </Typography>
-                      <Box
-                        component="form"
-                        // onSubmit={handleSubmit}
-                        noValidate
-                        sx={{ mt: 1 }}
-                      >
+                      component="form"
                       
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="email"
-                          label="Email Address"
-                          name="email"
-                          autoComplete="email"
-                          // onChange={(event) => setEmail(event.target.value)}
-                        />
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="email"
-                          label="Email Address"
-                          name="email"
-                          autoComplete="email"
-                          // onChange={(event) => setEmail(event.target.value)}
-                        />
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="email"
-                          label="Email Address"
-                          name="email"
-                          autoComplete="email"
-                          // onChange={(event) => setEmail(event.target.value)}
-                        />
+                      noValidate
+                      sx={{ mt: 1 }}
+                    >
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        type="text"
+                        id="ChannelName"
+                        label="Type Channel Name"
+                        name="firstname"
+                        autoComplete="text"
                         
-                        <Box textAlign="center">
-                          <Button
-                            variant="outlined"
-                            color="secondary"
-                            type="submit"
-                          >
-                            Login
-                          </Button>
-                        </Box>
+                        autoFocus
+                      />
+                      <FormControl sx={{ m: 1, width: 300 }}>
+                        <InputLabel id="demo-multiple-chip-label">
+                          Members
+                        </InputLabel>
+                        <Select
+                          labelId="demo-multiple-chip-label"
+                          id="demo-multiple-chip"
+                          multiple
+                          value={personName}
+                          onChange={handleChange}
+                          input={
+                            <OutlinedInput
+                              id="select-multiple-chip"
+                              label="Chip"
+                            />
+                          }
+                          renderValue={(selected) => (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.5,
+                              }}
+                            >
+                              {selected.map((value) => (
+                                <Chip key={value} label={value} />
+                              ))}
+                            </Box>
+                          )}
+                          MenuProps={MenuProps}
+                        >
+                          {names.map((name) => (
+                            <MenuItem
+                              key={name}
+                              value={name}
+                              
+                            >
+                              {name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      <Box textAlign="center">
+                        <Button
+                          variant="outlined"
+                          color="secondary"
+                          type="submit"
+                        >
+                          Register
+                        </Button>
                       </Box>
+                      
                     </Box>
-                  </Container>
-                </Modal.Body>
-                <Modal.Footer>
+                  </Box>
+                </DialogContent>
+                <DialogActions>
                   <Button
                     variant="contained"
                     color="error"
                     onClick={handleClose}
                   >
-                    Close
+                    Cancel
                   </Button>
-                  &nbsp;&nbsp;&nbsp;
                   <Button variant="contained" onClick={handleClose}>
-                    Save Changes
+                    Subscribe
                   </Button>
-                </Modal.Footer>
-              </Modal>
+                </DialogActions>
+              </Dialog>
+              <Dialog
+                open={group}
+                onClose={handleClose}
+                scroll={scroll}
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+              >
+                <DialogTitle id="scroll-dialog-title">
+                  New Group
+                </DialogTitle>
+                <DialogContent dividers={scroll === "paper"}>
+                  
+                  <Box
+                    sx={{
+                      
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    
+                    <Typography component="h1" variant="h5">
+                      Create Group
+                    </Typography>
+                    <Box
+                      component="form"
+                      noValidate
+                      sx={{ mt: 1 }}
+                    >
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        type="text"
+                        id="ChannelName"
+                        label="Type Channel Name"
+                        name="firstname"
+                        autoComplete="text"
+                        autoFocus
+                      />
+                      <FormControl sx={{ m: 1, width: 300 }}>
+                        <InputLabel id="demo-multiple-chip-label">
+                          Members
+                        </InputLabel>
+                        <Select
+                          labelId="demo-multiple-chip-label"
+                          id="demo-multiple-chip"
+                          multiple
+                          value={personName}
+                          onChange={handleChange}
+                          input={
+                            <OutlinedInput
+                              id="select-multiple-chip"
+                              label="Chip"
+                            />
+                          }
+                          renderValue={(selected) => (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.5,
+                              }}
+                            >
+                              {selected.map((value) => (
+                                <Chip key={value} label={value} />
+                              ))}
+                            </Box>
+                          )}
+                          MenuProps={MenuProps}
+                        >
+                          {names.map((name) => (
+                            <MenuItem
+                              key={name}
+                              value={name}
+                              
+                            >
+                              {name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      
+                    </Box>
+                  </Box>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleClose}
+                  >
+                    Cancel
+                  </Button>
+                  <Button variant="contained" onClick={handleClose}>
+                    Create
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Box>
           </Toolbar>
         </Container>

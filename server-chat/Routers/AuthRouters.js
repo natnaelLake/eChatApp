@@ -35,7 +35,6 @@ const handleError = (error) => {
     });
   }
   return errors;
-  // console.log('error code is :',error)
 };
 const maxAge = 24 * 60 * 60;
 const createToken = (id) => {
@@ -66,6 +65,7 @@ const login = async (req, res) => {
   } catch (err) {
     console.log(err)
     const errors = handleError(err);
+    console.log('error code is :',errors)
     res.status(400).json(errors);
   }
 };

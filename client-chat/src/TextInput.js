@@ -1,9 +1,8 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
+import { TextField, IconButton,} from "@mui/material";
 import { createStyles, makeStyles, Theme } from "@mui/styles";
 import SendIcon from "@mui/icons-material/Send";
-import Button from "@mui/material/Button";
-
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 const useStyles = makeStyles((theme) =>
   createStyles({
     wrapForm: {
@@ -12,33 +11,62 @@ const useStyles = makeStyles((theme) =>
       flex: 1,
       justifyContent: "flex-end",
       width: "100%",
-      // margin: `20px auto`,
-      // marginTop: "50px",
     },
     wrapText: {
       width: "100%",
     },
     button: {
-      //margin: theme.spacing(1),
     },
   })
 );
 
 export const TextInput = () => {
   const classes = useStyles();
+  const [change, setChange] = React.useState('')
+  const handleChange = (e)=>{
+    setChange(e.target.value)
+  }
   return (
     <>
       <form className={classes.wrapForm} noValidate autoComplete="off">
         <TextField
           id="standard-text"
-          label="Write  Message"
           className={classes.wrapText}
-          //margin="normal"
-          sx={{width:'100%'}}
+          onChange={handleChange}
+          placeholder="write message"
+          sx={{ width: "100%" }}
+          InputProps={{
+            startAdornment: (
+              <>
+                  <IconButton
+                    aria-label="upload"
+                    component="label" 
+                  >
+                    <AttachFileIcon />
+                    <input
+                      hidden
+                      type="file"
+                    />
+                  </IconButton>
+              </>
+            ),
+            endAdornment: (
+              <>
+                {change !=='' ? 
+                  <IconButton
+                    aria-label="upload"
+                    component="label" 
+                  >
+                    <SendIcon  color = 'primary'/>
+                    <input
+                      hidden
+                      type="submit"
+                    />
+                  </IconButton> : null}
+              </>
+            ),
+          }}
         />
-        <Button variant="contained" color="primary" className={classes.button} spacing = {1}>
-          <SendIcon />
-        </Button>
       </form>
     </>
   );

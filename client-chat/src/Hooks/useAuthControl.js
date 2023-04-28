@@ -20,8 +20,9 @@ export const useAuthControl = () => {
       localStorage.setItem("user", JSON.stringify(users.data));
       dispatch({ type: "LOGIN", payload: users.data });
     } catch (error) {
+      console.log(error.response)
       setEmailError(error.response.data.email);
-      setPhoneError(error.response.data.phone);
+      setPasswordError(error.response.data.password);
     }
     
   };

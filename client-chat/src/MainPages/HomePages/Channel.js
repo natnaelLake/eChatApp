@@ -184,54 +184,66 @@ const data = {
 function Channel() {
   const classes = useStyles();
   const [active, setActive] = React.useState("");
-  const {user} = useAuth()
+  const { user } = useAuth();
+  const [selected, setSelected] = React.useState(false);
+  const [selectedData, setSelectedData] = React.useState({})
+  const handleSelect = (data) => {
+    setSelectedData(data);
+    setSelected(true);
+  };
+  // console.log(selectedData)
   return (
     <div>
       {/* <Home /> */}
-      <Stack direction='row' >
-        <Stack sx ={{width:'20%'}}>
+      <Stack direction="row">
+        <Stack sx={{ width: "20%" }}>
           <CssBaseline />
           <Drawer
             variant="permanent"
             sx={{
-              width: '20%',
+              width: "20%",
               flexShrink: 0,
               [`& .MuiDrawer-paper`]: {
-                width: '20%',
+                width: "20%",
                 boxSizing: "border-box",
               },
             }}
           >
             <Toolbar />
-            <Box sx={{ overflow: "auto" }}> 
+            <Box sx={{ overflow: "auto" }}>
               <List>
-                {data.data !==null ?  data.data.map((text, index) => (
-                  <ListItem key={index} disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <Stack direction="row" spacing={2}>
-                          <StyledBadge
-                            overlap="circular"
-                            anchorOrigin={{
-                              vertical: "bottom",
-                              horizontal: "right",
-                            }}
-                            variant="dot"
-                          >
-                            <Avatar alt="User One" src={text.image} />
-                          </StyledBadge>
-                        </Stack>
-                      </ListItemIcon>
-                      <ListItemText primary={text.title} secondary = 'welcome welcome '/>
-                    </ListItemButton>
-                  </ListItem>
-                )):null}
+                {data.data !== null
+                  ? data.data.map((text, index) => (
+                      <ListItem key={index} disablePadding>
+                        <ListItemButton onClick={() => handleSelect(text)}>
+                          <ListItemIcon>
+                            <Stack direction="row" spacing={2}>
+                              <StyledBadge
+                                overlap="circular"
+                                anchorOrigin={{
+                                  vertical: "bottom",
+                                  horizontal: "right",
+                                }}
+                                variant="dot"
+                              >
+                                <Avatar alt="User One" src={text.image} />
+                              </StyledBadge>
+                            </Stack>
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={text.title}
+                            secondary="welcome welcome "
+                          />
+                        </ListItemButton>
+                      </ListItem>
+                    ))
+                  : null}
               </List>
               <Divider />
               <List>
                 {["All mail", "Trash", "Spam"].map((text, index) => (
                   <ListItem key={text} disablePadding>
-                    <ListItemButton>
+                    <ListItemButton onClick={() => handleSelect(text)}>
                       <ListItemIcon>
                         {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                       </ListItemIcon>
@@ -243,11 +255,20 @@ function Channel() {
             </Box>
           </Drawer>
         </Stack>
-        <Stack sx = {{height: "76vh",width:'100%' }} >
-            <Stack id="style-1" className={classes.messagesBody} >
-              <Stack spacing={2} sx = {{margin:'10px'}}>
-                <Stack  justifyContent="center" spacing = {2}>
-                   <MessageLeft
+        <Stack sx={{ height: "76vh", width: "100%" }}>
+          <Stack id="style-1" className={classes.messagesBody}>
+            {selected == false ? (
+              <Typography
+                align="center"
+                color="grey"
+                sx={{ marginTop: "200px" }}
+              >
+                Select Chat User to start Message Exchange{" "}
+              </Typography>
+            ) : (
+              <Stack spacing={2} sx={{ margin: "10px" }}>
+                <Stack justifyContent="center" spacing={2}>
+                  <MessageLeft
                     message="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum molestias minus dolorum, fugit culpa dolore sint reprehenderit provident ipsa eius at nihil quos! Obcaecati eius esse sed ratione non quidem!"
                     timestamp="MM/DD 00:00"
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
@@ -316,15 +337,16 @@ function Channel() {
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
                     displayName="Use One"
                     avatarDisp={true}
-                  /> 
+                  />
                 </Stack>
               </Stack>
-            </Stack>
-                <Stack sx = {{}}>
-                  <TextInput />
-                </Stack>
+            )}
+          </Stack>
+          <Stack sx={{}}>
+            <TextInput />
+          </Stack>
         </Stack>
-      </Stack> 
+      </Stack>
     </div>
   );
 }

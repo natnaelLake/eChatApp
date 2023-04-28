@@ -10,6 +10,7 @@ import Video from './MainPages/HomePages/Video'
 import Public from './MainPages/HomePages/Public'
 import Private from './MainPages/HomePages/Private'
 import { useAuth } from './Hooks/useAuth'
+import ManageProfile from './MainPages/HomePages/Settings/ManageProfile'
 
 function Routers() {
   const {user} = useAuth()
@@ -26,6 +27,7 @@ function Routers() {
                 <Route path={user ? '/public':'/login'} element = {user ? <Public/>:<Login/>}></Route>
                 <Route path={user ? '/video':'/login'} element = {user ? <Video/>:<Login/>}></Route>
                 <Route path = {user ? '/chat':'/login'} element = {user ? <Chat/> : <Login/>}></Route>
+                <Route path = '/settings' element = {user ? <ManageProfile/> : <Login/>}></Route>
             </Routes>
         </Router>
     </div>

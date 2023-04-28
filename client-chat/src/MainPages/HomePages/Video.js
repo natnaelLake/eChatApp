@@ -14,7 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Box } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import image from "../../Assets/pexels-chris-hepworth-16047551.jpg";
 import imageFive from "../../Assets/pexels-esther-huynh-bich-2340876.jpg";
 import imageSix from "../../Assets/pexels-pixabay-219569.jpg";
@@ -25,15 +25,25 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ArchiveIcon from "@mui/icons-material/Archive";
-import Paper from "@mui/material/Paper";
+import {
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Divider,
+} from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { MuiFileInput } from "mui-file-input";
+import imageTwo from "../../Assets/pexels-mirco-violent-blur-4033244.jpg";
 
 function refreshMessages() {
   const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
-
   return Array.from(new Array(50)).map(
     () => messageExamples[getRandomInt(messageExamples.length)]
   );
@@ -41,9 +51,22 @@ function refreshMessages() {
 
 export default function Video() {
   const [value, setValue] = React.useState(0);
-  console.log(value)
+  console.log(value);
   const ref = React.useRef(null);
   const [messages, setMessages] = React.useState(() => refreshMessages());
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState("paper");
+  const [file, setFile] = React.useState(null);
+
+  const handleChange = (newFile) => {
+    setFile(newFile);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   React.useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
@@ -56,689 +79,98 @@ export default function Video() {
         <CssBaseline />
         <div>
           {/* <Home /> */}
-          { value === 0 && 
-            (<>
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-  avatar={
-    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-      R
-    </Avatar>
-  }
-  action={
-    <IconButton aria-label="settings">
-      <MoreVertIcon />
-    </IconButton>
-  }
-  title="Shrimp and Chorizo Paella"
-  subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={image} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
+          <Button
+            variant="contained"
+            onClick={handleOpen}
+            endIcon={<ArrowForwardIosIcon />}
+          >
+            Post Video
+          </Button>
+          {value === 0 && (
+            <>
+              <Box align="center" sx={{ justifyContent: "center" }}>
+                <Box spacing={2} direction="column">
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={image} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={image} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={image} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={image} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                </Box>
               </Box>
-              <br />
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-avatar={
-  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-    R
-  </Avatar>
-}
-action={
-  <IconButton aria-label="settings">
-    <MoreVertIcon />
-  </IconButton>
-}
-title="Shrimp and Chorizo Paella"
-subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={image} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
+            </>
+          )}
+          {value === 1 && (
+            <>
+              <Box align="center" sx={{ justifyContent: "center" }}>
+                <Box spacing={2} direction="column">
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={imageFive} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={imageFive} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={imageFive} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={imageFive} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                </Box>
               </Box>
-              <br />
-              <Box align="center" sx={{ marginTop: "10px" }}>
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-avatar={
-<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-  R
-</Avatar>
-}
-action={
-<IconButton aria-label="settings">
-  <MoreVertIcon />
-</IconButton>
-}
-title="Shrimp and Chorizo Paella"
-subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={image} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
+            </>
+          )}
+
+          {value === 2 && (
+            <>
+              <Box align="center" sx={{ justifyContent: "center" }}>
+                <Box spacing={2} direction="column">
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={imageSix} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={imageSix} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={imageSix} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                  <Box sx={{ justifyContet: "center" }}>
+                    <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                      <Image src={imageSix} width="100%" height="500vh" />
+                    </Paper>
+                  </Box>
+                </Box>
               </Box>
-              <br />
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-  avatar={
-    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-      R
-    </Avatar>
-  }
-  action={
-    <IconButton aria-label="settings">
-      <MoreVertIcon />
-    </IconButton>
-  }
-  title="Shrimp and Chorizo Paella"
-  subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={image} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-            </>) 
-            
-}
-{ value === 1 && 
-            (<>
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-  avatar={
-    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-      R
-    </Avatar>
-  }
-  action={
-    <IconButton aria-label="settings">
-      <MoreVertIcon />
-    </IconButton>
-  }
-  title="Shrimp and Chorizo Paella"
-  subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={imageFive} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-              <br />
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-avatar={
-  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-    R
-  </Avatar>
-}
-action={
-  <IconButton aria-label="settings">
-    <MoreVertIcon />
-  </IconButton>
-}
-title="Shrimp and Chorizo Paella"
-subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={imageFive} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-              <br />
-              <Box align="center" sx={{ marginTop: "10px" }}>
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-avatar={
-<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-  R
-</Avatar>
-}
-action={
-<IconButton aria-label="settings">
-  <MoreVertIcon />
-</IconButton>
-}
-title="Shrimp and Chorizo Paella"
-subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={imageFive} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-              <br />
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-  avatar={
-    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-      R
-    </Avatar>
-  }
-  action={
-    <IconButton aria-label="settings">
-      <MoreVertIcon />
-    </IconButton>
-  }
-  title="Shrimp and Chorizo Paella"
-  subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={imageFive} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-            </>) 
-}
-            
-{ value === 2 && 
-            (<>
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-  avatar={
-    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-      R
-    </Avatar>
-  }
-  action={
-    <IconButton aria-label="settings">
-      <MoreVertIcon />
-    </IconButton>
-  }
-  title="Shrimp and Chorizo Paella"
-  subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={imageSix} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-              <br />
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-avatar={
-  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-    R
-  </Avatar>
-}
-action={
-  <IconButton aria-label="settings">
-    <MoreVertIcon />
-  </IconButton>
-}
-title="Shrimp and Chorizo Paella"
-subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={imageSix} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-              <br />
-              <Box align="center" sx={{ marginTop: "10px" }}>
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-avatar={
-<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-  R
-</Avatar>
-}
-action={
-<IconButton aria-label="settings">
-  <MoreVertIcon />
-</IconButton>
-}
-title="Shrimp and Chorizo Paella"
-subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={imageSix} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-              <br />
-              <Box align="center">
-                <Card sx={{ maxWidth: 345 }}>
-                  {/* <CardHeader
-  avatar={
-    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-      R
-    </Avatar>
-  }
-  action={
-    <IconButton aria-label="settings">
-      <MoreVertIcon />
-    </IconButton>
-  }
-  title="Shrimp and Chorizo Paella"
-  subheader="September 14, 2016"
-/> */}
-                  <CardContent sx={{ marginTop: "0" }}>
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginBottom: "-195px", marginLeft: "290px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-190px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-200px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="share"
-                      sx={{ marginBottom: "-210px", marginLeft: "290px" }}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <Image src={imageSix} width="345px" height="100%" />
-                    {/* <CardActions disableSpacing> */}
-                    <IconButton
-                      aria-label="add to favorites"
-                      sx={{ marginTop: "-90px" }}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" sx={{ marginTop: "-90px" }}>
-                      <ShareIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              </Box>
-            </>) 
-}
+            </>
+          )}
         </div>
         <Paper
           sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
@@ -756,6 +188,59 @@ subheader="September 14, 2016"
             <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
           </BottomNavigation>
         </Paper>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          scroll={scroll}
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+        >
+          <DialogTitle id="scroll-dialog-title">Profile Settings</DialogTitle>
+          <DialogContent dividers={scroll === "paper"}>
+            <Box
+              sx={{
+                marginTop: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography component="h1" variant="h5" mb={3}>
+                Post Videos
+              </Typography>
+              <Divider />
+              <Box sx={{ justifyContet: "center",marginLeft:'20%' }}>
+                <Paper sx={{ width: "60%", marginBottom: 4 }}>
+                  <Image src={imageSix} width="100%" height="500vh" />
+                </Paper>
+              </Box>
+              <Divider />
+              <Box component="form" noValidate sx={{ mt: 1 }}>
+                <MuiFileInput
+                  value={file}
+                  onChange={handleChange}
+                  placeholder="Post Video"
+                  fullWidth
+                  accept=".png .jpg"
+                />
+                
+                {/* <Box textAlign="center">
+                  <Button variant="outlined" color="secondary" type="submit">
+                    Update
+                  </Button>
+                </Box> */}
+              </Box>
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained" color="error" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="contained" onClick={handleClose}>
+              Post
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </div>
   );
