@@ -1,34 +1,36 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
   Avatar,
   Button,
-  Stack,
-  Typography,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
-  TextField,
+  DialogContent,
+  DialogTitle,
   Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import { MuiFileInput } from "mui-file-input";
+import Image from "mui-image";
 import Carousel from "react-material-ui-carousel";
-import imageTwo from "../../../Assets/pexels-mirco-violent-blur-4033244.jpg";
 import imageThree from "../../../Assets/pexels-chris-hepworth-16047551.jpg";
 import imageFour from "../../../Assets/pexels-david-bartus-610294.jpg";
 import imageFive from "../../../Assets/pexels-esther-huynh-bich-2340876.jpg";
-import imageSix from "../../../Assets/pexels-pixabay-219569.jpg";
+import imageTwo from "../../../Assets/pexels-mirco-violent-blur-4033244.jpg";
 import imageSeven from "../../../Assets/pexels-максим-11896928.jpg";
-import { MuiFileInput } from "mui-file-input";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import Image from "mui-image";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 function ManageProfile() {
   const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
+  const [scroll] = React.useState("paper");
   const [file, setFile] = React.useState(null);
-
+  const navigate = useNavigate();
   const handleChange = (newFile) => {
     setFile(newFile);
   };
@@ -38,36 +40,25 @@ function ManageProfile() {
   const handleOpen = () => {
     setOpen(true);
   };
-  var items = [
-    {
-      name: "Random Name #1",
-      description: "Probably the most random thing you have ever seen!",
-    },
-    {
-      name: "Random Name #2",
-      description: "Hello World!",
-    },
-    {
-      name: "Random Name #23",
-      description: "Hello World!",
-    },
-    {
-      name: "Random Name #4",
-      description: "Hello World!",
-    },
-    {
-      name: "Random Name #5",
-      description: "Hello World!",
-    },
-  ];
-
+  const handleBack = () => {
+    navigate('/')
+  };
   return (
     <Stack sx={{ height: "100%", width: "100%" }} spacing={0} direction="row">
       <Stack sx={{ width: "40%" }}>
         <Box sx={{ justifyContent: "center" }}>
           <Paper sx={{ width: "100%", height: "100vh" }} elevation={0}>
-            <Stack>
-              <Typography color="white">
+            <IconButton>
+              <Button
+                startIcon={<KeyboardBackspaceIcon />}
+                variant="contained"
+                onClick={handleBack}
+              >
+                Back
+              </Button>
+            </IconButton>
+            <Stack sx={{ marginTop: "30px" }}>
+              <Typography color="black" align="center">
                 Welcome To Profile Management
               </Typography>
             </Stack>
@@ -136,48 +127,48 @@ function ManageProfile() {
           }}
         >
           {/* <Paper> */}
-            <Stack spacing={2} direction = 'column'>
+          <Stack spacing={2} direction="column">
             <Stack>
-                <Typography variant='h3' >Your Posted Images</Typography>
-              </Stack>
-              <Stack>
-                <Carousel
-                  NextIcon={<NavigateNextIcon />}
-                  PrevIcon={<ArrowBackIosNewIcon />}
-                  swipe={true}
-                  duration={300}
-                  animation={"slide"}
-                  navButtonsAlwaysVisible={true}
-                  // interval={4000}
-                >
-                  <Paper>
-                    <Image src={imageTwo} width={500} height={300} />
-                  </Paper>
-                  <Paper>
-                    <Image src={imageThree} width={500} height={300} />
-                  </Paper>
-                  <Paper>
-                    <Image src={imageFour} width={500} height={300} />
-                  </Paper>
-                </Carousel>
-              </Stack>
-              {/* <Box sx={{justifyContent:"center"}}> */}
-              <Stack>
-                <Typography variant='h3'>Your Posted Videos</Typography>
-              </Stack>
-                <Stack spacing={2} direction = 'column'>
-                  <Paper sx={{ width: '100%' }}>
-                    <Image src={imageSeven} width='100%' height={400} />
-                  </Paper>
-                  <Paper>
-                    <Image src={imageFour} width='100%' height={300} />
-                  </Paper>
-                  <Paper>
-                    <Image src={imageFive} width='100%' height={300} />
-                  </Paper>
-                </Stack>
-              {/* </Box> */}
+              <Typography variant="h3">Your Posted Images</Typography>
             </Stack>
+            <Stack>
+              <Carousel
+                NextIcon={<NavigateNextIcon />}
+                PrevIcon={<ArrowBackIosNewIcon />}
+                swipe={true}
+                duration={300}
+                animation={"slide"}
+                navButtonsAlwaysVisible={true}
+                // interval={4000}
+              >
+                <Paper>
+                  <Image src={imageTwo} width={500} height={300} />
+                </Paper>
+                <Paper>
+                  <Image src={imageThree} width={500} height={300} />
+                </Paper>
+                <Paper>
+                  <Image src={imageFour} width={500} height={300} />
+                </Paper>
+              </Carousel>
+            </Stack>
+            {/* <Box sx={{justifyContent:"center"}}> */}
+            <Stack>
+              <Typography variant="h3">Your Posted Videos</Typography>
+            </Stack>
+            <Stack spacing={2} direction="column">
+              <Paper sx={{ width: "100%" }}>
+                <Image src={imageSeven} width="100%" height={400} />
+              </Paper>
+              <Paper>
+                <Image src={imageFour} width="100%" height={300} />
+              </Paper>
+              <Paper>
+                <Image src={imageFive} width="100%" height={300} />
+              </Paper>
+            </Stack>
+            {/* </Box> */}
+          </Stack>
           {/* </Paper> */}
           {/* <Paper elevation={1}  sx = {{bgcolor:'primary.light'}}/>
           <Paper sx = {{bgcolor:'primary.light'}}/>

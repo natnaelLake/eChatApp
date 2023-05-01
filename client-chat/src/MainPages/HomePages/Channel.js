@@ -1,53 +1,53 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
+import MailIcon from "@mui/icons-material/Mail";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
+import {
+  Avatar,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Paper,
+  Stack,
+  TextField,
+} from "@mui/material";
 import AppBar from "@mui/material/AppBar";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { Avatar, Tab, Tabs } from "@mui/material";
-import Home from "../Home";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+import { createStyles, makeStyles } from "@mui/styles";
+import * as React from "react";
 import imageOne from "../../Assets/pexels-ali-pazani-2681751 (1).jpg";
-import imageTwo from "../../Assets/pexels-ali-pazani-2681751.jpg";
 import imageThree from "../../Assets/pexels-chris-hepworth-16047551.jpg";
 import imageFour from "../../Assets/pexels-david-bartus-610294.jpg";
 import imageFive from "../../Assets/pexels-esther-huynh-bich-2340876.jpg";
-import imageSix from "../../Assets/pexels-pixabay-219569.jpg";
-import imageSeven from "../../Assets/pexels-максим-11896928.jpg";
-import imageEight from "../../Assets/pexels-pixabay-413885.jpg";
 import imageNine from "../../Assets/pexels-mirco-violent-blur-4033244.jpg";
+import imageSix from "../../Assets/pexels-pixabay-219569.jpg";
 import imageTen from "../../Assets/pexels-pixabay-247298.jpg";
-import { styled } from "@mui/material/styles";
-import Badge from "@mui/material/Badge";
-import { createStyles, makeStyles, Theme } from "@mui/styles";
-import { Paper, Stack } from "@mui/material";
-import { TextInput } from "../../TextInput.js";
+import imageEight from "../../Assets/pexels-pixabay-413885.jpg";
+import imageSeven from "../../Assets/pexels-максим-11896928.jpg";
 import { MessageLeft, MessageRight } from "../../Message";
-import { useAuth } from "../../Hooks/useAuth";
-import VerticalSplitIcon from '@mui/icons-material/VerticalSplit';
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
-import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
-const useStyles = makeStyles((theme) =>
+import { TextInput } from "../../TextInput.js";
+import PhoneIcon from '@mui/icons-material/Phone';
+import AddIcon from '@mui/icons-material/Add';
+// import {capitalize} from '@mui/material/utils'
+const useStyles = makeStyles(() =>
   createStyles({
     paper: {
       width: "100%",
       height: "100%",
-      // maxWidth: "500px",
-      // maxHeight: "700px",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) =>
     },
     paper2: {
       width: "100%",
-      // maxWidth: "500px",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
@@ -70,7 +69,6 @@ const useStyles = makeStyles((theme) =>
     },
     messagesBody: {
       width: "calc( 100% )",
-      // margin: 10,
       overflowY: "scroll",
       height: "calc( 100% )",
     },
@@ -105,14 +103,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
   },
 }));
-
-const SmallAvatar = styled(Avatar)(({ theme }) => ({
-  width: 22,
-  height: 22,
-  border: `2px solid ${theme.palette.background.paper}`,
-}));
-
-const drawerWidth = 240;
 const data = {
   data: [
     {
@@ -189,44 +179,29 @@ const data = {
     },
   ],
 };
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Channel() {
   const classes = useStyles();
-  const [active, setActive] = React.useState("");
-  const { user } = useAuth();
   const [display, setDisplay] = React.useState(false);
   const [selected, setSelected] = React.useState(false);
-  const [selectedData, setSelectedData] = React.useState({});
+  // const [setSelectedData] = React.useState({});
+  const [openProfile, setOpenProfile] = React.useState(false);
+  const [scroll] = React.useState("paper");
+  const handleClose = () => {
+    setOpenProfile(false);
+  };
   const handleSelect = (data) => {
-    setSelectedData(data);
+    // setSelectedData(data);
     setSelected(true);
   };
-  // console.log(selectedData)
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  const handleProfile = () => {
+    setOpenProfile(true);
   };
   const handleDisplay = () => {
     setDisplay(!display);
   };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
   return (
     <div>
-      {/* <Home /> */}
       <Stack direction="row">
         <Stack sx={{ width: "20%" }}>
           <CssBaseline />
@@ -239,6 +214,12 @@ function Channel() {
                 width: "20%",
                 boxSizing: "border-box",
               },
+              container_with_scrolls:{
+                overflowX:'scroll',
+                '&::-webkit-scrollbar':{
+                    width:0,
+                }
+            }
             }}
           >
             <Toolbar />
@@ -289,7 +270,6 @@ function Channel() {
         </Stack>
         <Stack sx={{ height: "76vh", width: "100%" }}>
           <Stack sx={{}}>
-            {/* <TextInput /> */}
             <Box sx={{ flexGrow: 1 }}>
               <AppBar position="static">
                 <Toolbar>
@@ -309,59 +289,87 @@ function Channel() {
                     sx={{ flexGrow: 1 }}
                     align="center"
                   >
-                    Profile Name
+                    Bewuketu Lake
                   </Typography>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
+                  <IconButton onClick={handleProfile} sx={{ p: 0 }}>
+                    <Avatar alt="Bewuketu Lake" src={imageEight} />
                   </IconButton>
                 </Toolbar>
               </AppBar>
             </Box>
           </Stack>
-          {/* <Stack>
-                  <AppBar position="fixed">
-                    <Container maxWidth="xl">
-                      <Toolbar disableGutters>
-                        
+          <Dialog
+            open={openProfile}
+            onClose={handleClose}
+            scroll={scroll}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+          >
+            <DialogTitle id="scroll-dialog-title" align="center">
+              Bewuketu Lake
+            </DialogTitle>
+            <DialogContent dividers={scroll === "paper"}>
+              <Box
+                sx={{
+                  marginTop: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar
+                  sx={{ width: "60%", height: "60%" }}
+                  variant="square"
+                  src={imageEight}
+                />
 
-                        
-                          <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                          >
-                            <MenuIcon />
-                          </IconButton>
-                          
-                        
-                        
-
-                        <Box sx={{ flexGrow: 0 }}>
-                          <Tooltip title="Open settings">
-                            <IconButton
-                              onClick={handleOpenUserMenu}
-                              sx={{ p: 0 }}
-                            >
-                              <Avatar
-                                alt="Remy Sharp"
-                                src="/static/images/avatar/2.jpg"
-                              />
-                            </IconButton>
-                          </Tooltip>
-                          
-                        </Box>
-                      </Toolbar>
-                    </Container>
-                  </AppBar>
-                </Stack> */}
+                <Typography component="h1" variant="h5" p={3}>
+                  Biography
+                </Typography>
+                <Paper>
+                  <Typography>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Veritatis dolore quos ex, maiores similique architecto
+                    officia debitis consequuntur, iure doloremque rerum at
+                    tenetur excepturi. Provident modi iste iure excepturi aut.
+                  </Typography>
+                </Paper>
+                <Typography component="h1" variant="h5" p={3}>
+                  Additional Info:
+                </Typography>
+                <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                  <PhoneIcon
+                    sx={{ color: "primary.main", mr: 1, my: 0.5 }}
+                  />
+                  <TextField
+                    id="input-with-sx"
+                    defaultValue="09 34 62 77 08"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="filled"
+                  />
+                </Box>
+                <br />
+                <TextField
+                  id="filled-read-only-input"
+                  defaultValue="Hello World"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  variant="filled"
+                />
+                <Box component="form" noValidate sx={{ mt: 1 }}></Box>
+              </Box>
+            </DialogContent>
+            <DialogActions>
+              <Button variant="contained" color="error" onClick={handleClose}>
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Stack id="style-1" className={classes.messagesBody}>
-            {selected == false ? (
+            {selected === false ? (
               <Typography
                 align="center"
                 color="grey"
@@ -462,16 +470,26 @@ function Channel() {
                   width: "20%",
                   boxSizing: "border-box",
                 },
+                overflowX:'hidden'
               }}
               anchor="right"
             >
               <Toolbar />
-              <Box sx={{ overflow: "auto" }}>
+              <Box sx={{ overflow: "auto",marginTop:'10px' }}>
+              <Avatar
+                  sx={{ width: "100%", height: "60%" }}
+                  variant="square"
+                  src={imageEight}
+                />
+                <IconButton>
+                  <Button startIcon = {<AddIcon/>} sx={{textTransform:'capitalize'}} >Add Member</Button>
+                </IconButton>
+                <hr />
                 <List>
                   {data.data !== null
                     ? data.data.map((text, index) => (
                         <ListItem key={index} disablePadding>
-                          <ListItemButton onClick={() => handleSelect(text)}>
+                          <ListItemButton>
                             <ListItemIcon>
                               <Stack direction="row" spacing={2}>
                                 <StyledBadge
@@ -499,7 +517,7 @@ function Channel() {
                 <List>
                   {["All mail", "Trash", "Spam"].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                      <ListItemButton onClick={() => handleSelect(text)}>
+                      <ListItemButton>
                         <ListItemIcon>
                           {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                         </ListItemIcon>

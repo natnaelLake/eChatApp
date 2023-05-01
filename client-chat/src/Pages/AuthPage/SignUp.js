@@ -1,29 +1,24 @@
-import { Card } from "react-bootstrap";
-import { React, MouseEvent, useState, Fragment } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-// import FormControlLabel from "@mui/material/FormControlLabel";
-// import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import { React, useState } from "react";
+import { Card } from "react-bootstrap";
 import PersonIcon from "@mui/icons-material/Person";
-import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-// import { purple } from "@mui/material/colors";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-// import Input from '@mui/material/Input';
-// import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-// import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import FormControl from "@mui/material/FormControl";
 import { useAuthControl } from "../../Hooks/useAuthControl";
+
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -40,19 +35,11 @@ function SignUp() {
     phoneError,
     error,
   } = errorData;
-// console.log('errors are: ',errorData)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
     await Register(firstName, lastName, email, password, phone);
   };
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   const handleMouseDownPassword = (e) => {
     e.preventDefault();
   };
@@ -74,7 +61,11 @@ function SignUp() {
                 alignItems: "center",
               }}
             >
-                {error !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{error}</Typography>}
+              {error !== "" && (
+                <Typography sx={{ paddingLeft: 2 }} color="error">
+                  {error}
+                </Typography>
+              )}
               <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
                 <PersonIcon />
               </Avatar>
@@ -99,7 +90,11 @@ function SignUp() {
                   onChange={(e) => setFirstName(e.target.value)}
                   autoFocus
                 />
-                {firstNameError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{firstNameError}</Typography>}
+                {firstNameError !== "" && (
+                  <Typography sx={{ paddingLeft: 2 }} color="error">
+                    {firstNameError}
+                  </Typography>
+                )}
                 <TextField
                   margin="normal"
                   required
@@ -112,7 +107,11 @@ function SignUp() {
                   onChange={(e) => setLastName(e.target.value)}
                   autoFocus
                 />
-                {lastNameError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{lastNameError}</Typography>}
+                {lastNameError !== "" && (
+                  <Typography sx={{ paddingLeft: 2 }} color="error">
+                    {lastNameError}
+                  </Typography>
+                )}
                 <TextField
                   margin="normal"
                   type="email"
@@ -125,7 +124,11 @@ function SignUp() {
                   onChange={(e) => setEmail(e.target.value)}
                   autoFocus
                 />
-                {emailError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{emailError}</Typography>}
+                {emailError !== "" && (
+                  <Typography sx={{ paddingLeft: 2 }} color="error">
+                    {emailError}
+                  </Typography>
+                )}
                 <TextField
                   margin="normal"
                   required
@@ -139,7 +142,11 @@ function SignUp() {
                   onChange={(e) => setPhone(e.target.value)}
                   autoFocus
                 />
-                {phoneError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{phoneError}</Typography>}
+                {phoneError !== "" && (
+                  <Typography sx={{ paddingLeft: 2 }} color="error">
+                    {phoneError}
+                  </Typography>
+                )}
                 <FormControl fullWidth variant="outlined" required>
                   <InputLabel htmlFor="outlined-adornment-password">
                     Password
@@ -162,7 +169,11 @@ function SignUp() {
                     }
                     label="Password"
                   />
-                {passwordError !== '' && <Typography sx = {{paddingLeft:2}} color = 'error'>{passwordError}</Typography>}
+                  {passwordError !== "" && (
+                    <Typography sx={{ paddingLeft: 2 }} color="error">
+                      {passwordError}
+                    </Typography>
+                  )}
                 </FormControl>
                 <br />
                 <br />
@@ -179,11 +190,7 @@ function SignUp() {
                 </Grid>
                 <br />
                 <Box textAlign="center">
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    type="submit"
-                  >
+                  <Button variant="outlined" color="secondary" type="submit">
                     Register
                   </Button>
                 </Box>

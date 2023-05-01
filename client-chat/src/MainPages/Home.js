@@ -1,72 +1,53 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import Diversity1Icon from "@mui/icons-material/Diversity1";
+import GroupsIcon from "@mui/icons-material/Groups";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
+import SearchIcon from "@mui/icons-material/Search";
+import SecurityIcon from "@mui/icons-material/Security";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  Tab,
+  Tabs,
+  TextField,
+} from "@mui/material";
+import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import Container from "@mui/material/Container";
 import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import InputLabel from "@mui/material/InputLabel";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import GroupsIcon from "@mui/icons-material/Groups";
-import Diversity1Icon from "@mui/icons-material/Diversity1";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import SecurityIcon from "@mui/icons-material/Security";
-import LogoutIcon from "@mui/icons-material/Logout";
-import imageOne from "../Assets/pexels-ali-pazani-2681751 (1).jpg";
-import imageTwo from "../Assets/pexels-ali-pazani-2681751.jpg";
-import imageThree from "../Assets/pexels-chris-hepworth-16047551.jpg";
-import imageFour from "../Assets/pexels-david-bartus-610294.jpg";
-import imageFive from "../Assets/pexels-esther-huynh-bich-2340876.jpg";
-import imageSix from "../Assets/pexels-pixabay-219569.jpg";
-import imageSeven from "../Assets/pexels-максим-11896928.jpg";
-import imageEight from "../Assets/pexels-pixabay-413885.jpg";
-import imageNine from "../Assets/pexels-mirco-violent-blur-4033244.jpg";
-import imageTen from "../Assets/pexels-pixabay-247298.jpg";
-import MuiThemeProvider from "@mui/material/styles/ThemeProvider";
-import {
-  Tabs,
-  Tab,
-  Stack,
-  TextField,
-  CssBaseline,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
-import Group from "./HomePages/Group";
-import Channel from "./HomePages/Channel";
-import Public from "./HomePages/Public";
-import Private from "./HomePages/Private";
-import Video from "./HomePages/Video";
-import SearchIcon from '@mui/icons-material/Search';
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Hooks/useAuth";
 import { useAuthControl } from "../Hooks/useAuthControl";
-import { useNavigate } from "react-router-dom";
-import { Form, Modal } from "react-bootstrap";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
+import Channel from "./HomePages/Channel";
+import Group from "./HomePages/Group";
+import Private from "./HomePages/Private";
+import Public from "./HomePages/Public";
+import Video from "./HomePages/Video";
 
-import FormControl from "@mui/material/FormControl";
-import { useTheme } from "@mui/material/styles";
-import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -78,14 +59,7 @@ const MenuProps = {
     },
   },
 };
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
+
 const names = [
   "Oliver Hansen",
   "Van Henry",
@@ -98,15 +72,6 @@ const names = [
   "Virginia Andrews",
   "Kelly Snyder",
 ];
-// const pages = ["Products", "Pricing", "Blog"];
-// const settings = [
-//   "Create Channel",
-//   "Create Group",
-//   "Manage Profile",
-//   "Privacy and Security",
-//   "Logout",
-// ];
-
 const useTabStyles = makeStyles({
   root: {
     justifyContent: "center",
@@ -127,7 +92,7 @@ function Home() {
   const [channel, setChannel] = React.useState(false);
   const [group, setGroup] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
+  const [scroll] = React.useState("paper");
   const handleClose = () => {
     setOpen(false);
   };
@@ -161,7 +126,6 @@ function Home() {
     setState({ ...state, [anchor]: open });
   };
 
-  const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
@@ -190,28 +154,9 @@ function Home() {
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              LOGO
-            </Typography> */}
             <form noValidate autoComplete="off">
               <TextField
                 id="standard-text"
-                // className={classes.wrapText}
                 onChange={handleChange}
                 placeholder="Search User"
                 sx={{
@@ -274,7 +219,7 @@ function Home() {
                   <Tabs
                     classes={{ root: classes.root, scroller: classes.scroller }}
                     value={active}
-                    onChange={(event, newValue) => {
+                    onChange={(newValue) => {
                       setActive(newValue);
                     }}
                     indicatorColor="secondary"
@@ -282,37 +227,18 @@ function Home() {
                     variant={"scrollable"}
                     scrollButtons="auto"
                     orientation="vertical"
+                    sx={{textTransform:'capitalize'}}
                   >
-                    {navTabs.map((city, index) => (
-                      <Tab key={index} label={city} value={city} />
+                    {navTabs.map((navbars, index) => (
+                      <Tab sx={{textTransform:'capitalize'}} key={index} label={navbars} value={navbars} />
                     ))}
                   </Tabs>
                 }
               </Menu>
             </Box>
-            {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              LOGO
-            </Typography> */}
             <form noValidate autoComplete="off">
               <TextField
                 id="standard-text"
-                // className={classes.wrapText}
                 onChange={handleChange}
                 placeholder="Search User"
                 sx={{
@@ -361,7 +287,7 @@ function Home() {
                 scrollButtons="auto"
               >
                 {navTabs.map((city, index) => (
-                  <Tab key={index} label={city} value={city} />
+                  <Tab sx={{textTransform:'capitalize'}} key={index} label={city} value={city} />
                 ))}
               </Tabs>
             </Box>

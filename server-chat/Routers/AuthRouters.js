@@ -1,8 +1,7 @@
 const express = require("express");
-// const router = express.Router();
+
 const User = require("../Model/UserModel");
 const jwt = require("jsonwebtoken");
-// const { restart } = require('nodemon')
 
 const handleError = (error) => {
   const errors = {
@@ -26,7 +25,7 @@ const handleError = (error) => {
     errors["password"] = "Fill Password Field";
   }
   if (error.code === 11000) {
-    errors.error= "User is Already Registered";
+    errors.error = "User is Already Registered";
     return errors;
   }
   if (error.message.includes("User validation failed")) {
@@ -48,9 +47,9 @@ const signup = async (req, res) => {
     const user = await User.create({
       ...req.body,
     });
-    console.log(user)
+    console.log(user);
     const token = createToken(user._id);
-    res.status(200).json({user, token});
+    res.status(200).json({ user, token });
   } catch (error) {
     const errors = handleError(error);
     res.status(401).json(errors);
@@ -61,11 +60,11 @@ const login = async (req, res) => {
   try {
     const user = await User.login(email, password);
     const token = createToken(user._id);
-    res.status(200).json({user, token});
+    res.status(200).json({ user, token });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     const errors = handleError(err);
-    console.log('error code is :',errors)
+    console.log("error code is :", errors);
     res.status(400).json(errors);
   }
 };

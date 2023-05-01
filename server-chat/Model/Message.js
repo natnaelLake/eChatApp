@@ -18,4 +18,4 @@ const messageDb = mongoose.Schema(
   { timestapms: true }
 );
 
-module.exports = mongoose.model('Message',messageDb);
+module.exports = mongoose.model("Message", messageDb);

@@ -1,15 +1,14 @@
-import React from "react";
-import { TextField, IconButton,} from "@mui/material";
-import { createStyles, makeStyles, Theme } from "@mui/styles";
-import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-const useStyles = makeStyles((theme) =>
+import SendIcon from "@mui/icons-material/Send";
+import { IconButton, TextField, } from "@mui/material";
+import { createStyles, makeStyles } from "@mui/styles";
+import React from "react";
+const useStyles = makeStyles(() =>
   createStyles({
     wrapForm: {
       display: "flex",
       justifyContent: "center",
       flex: 1,
-      justifyContent: "flex-end",
       width: "97%",
     },
     wrapText: {

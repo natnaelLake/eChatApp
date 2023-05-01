@@ -1,46 +1,27 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+import ArchiveIcon from "@mui/icons-material/Archive";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Box, Button, Stack } from "@mui/material";
+import RestoreIcon from "@mui/icons-material/Restore";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Paper,
+} from "@mui/material";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import CssBaseline from "@mui/material/CssBaseline";
+import Typography from "@mui/material/Typography";
+import { MuiFileInput } from "mui-file-input";
+import * as React from "react";
+import { Image } from "react-bootstrap";
 import image from "../../Assets/pexels-chris-hepworth-16047551.jpg";
 import imageFive from "../../Assets/pexels-esther-huynh-bich-2340876.jpg";
 import imageSix from "../../Assets/pexels-pixabay-219569.jpg";
-import { Image } from "react-bootstrap";
-import Home from "../Home";
-import CssBaseline from "@mui/material/CssBaseline";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import RestoreIcon from "@mui/icons-material/Restore";
-import ArchiveIcon from "@mui/icons-material/Archive";
-import {
-  Paper,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Divider,
-} from "@mui/material";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { MuiFileInput } from "mui-file-input";
-import imageTwo from "../../Assets/pexels-mirco-violent-blur-4033244.jpg";
 
 function refreshMessages() {
   const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
@@ -53,9 +34,9 @@ export default function Video() {
   const [value, setValue] = React.useState(0);
   console.log(value);
   const ref = React.useRef(null);
-  const [messages, setMessages] = React.useState(() => refreshMessages());
+  const [setMessages] = React.useState(() => refreshMessages());
   const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
+  const [scroll] = React.useState("paper");
   const [file, setFile] = React.useState(null);
 
   const handleChange = (newFile) => {
@@ -78,7 +59,6 @@ export default function Video() {
       <Box sx={{ pb: 7 }} ref={ref}>
         <CssBaseline />
         <div>
-          {/* <Home /> */}
           <Button
             variant="contained"
             onClick={handleOpen}
@@ -209,7 +189,7 @@ export default function Video() {
                 Post Videos
               </Typography>
               <Divider />
-              <Box sx={{ justifyContet: "center",marginLeft:'20%' }}>
+              <Box sx={{ justifyContet: "center", marginLeft: "20%" }}>
                 <Paper sx={{ width: "60%", marginBottom: 4 }}>
                   <Image src={imageSix} width="100%" height="500vh" />
                 </Paper>
@@ -223,12 +203,6 @@ export default function Video() {
                   fullWidth
                   accept=".png .jpg"
                 />
-                
-                {/* <Box textAlign="center">
-                  <Button variant="outlined" color="secondary" type="submit">
-                    Update
-                  </Button>
-                </Box> */}
               </Box>
             </Box>
           </DialogContent>
