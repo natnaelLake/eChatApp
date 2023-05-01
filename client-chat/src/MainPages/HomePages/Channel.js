@@ -32,7 +32,15 @@ import { Paper, Stack } from "@mui/material";
 import { TextInput } from "../../TextInput.js";
 import { MessageLeft, MessageRight } from "../../Message";
 import { useAuth } from "../../Hooks/useAuth";
-
+import VerticalSplitIcon from '@mui/icons-material/VerticalSplit';
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import AdbIcon from "@mui/icons-material/Adb";
+import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
 const useStyles = makeStyles((theme) =>
   createStyles({
     paper: {
@@ -181,17 +189,41 @@ const data = {
     },
   ],
 };
+const pages = ["Products", "Pricing", "Blog"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
 function Channel() {
   const classes = useStyles();
   const [active, setActive] = React.useState("");
   const { user } = useAuth();
+  const [display, setDisplay] = React.useState(false);
   const [selected, setSelected] = React.useState(false);
-  const [selectedData, setSelectedData] = React.useState({})
+  const [selectedData, setSelectedData] = React.useState({});
   const handleSelect = (data) => {
     setSelectedData(data);
     setSelected(true);
   };
   // console.log(selectedData)
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleDisplay = () => {
+    setDisplay(!display);
+  };
+
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
+
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
   return (
     <div>
       {/* <Home /> */}
@@ -256,6 +288,78 @@ function Channel() {
           </Drawer>
         </Stack>
         <Stack sx={{ height: "76vh", width: "100%" }}>
+          <Stack sx={{}}>
+            {/* <TextInput /> */}
+            <Box sx={{ flexGrow: 1 }}>
+              <AppBar position="static">
+                <Toolbar>
+                  <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    onClick={handleDisplay}
+                    sx={{ mr: 2 }}
+                  >
+                    <VerticalSplitIcon />
+                  </IconButton>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ flexGrow: 1 }}
+                    align="center"
+                  >
+                    Profile Name
+                  </Typography>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Toolbar>
+              </AppBar>
+            </Box>
+          </Stack>
+          {/* <Stack>
+                  <AppBar position="fixed">
+                    <Container maxWidth="xl">
+                      <Toolbar disableGutters>
+                        
+
+                        
+                          <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                          >
+                            <MenuIcon />
+                          </IconButton>
+                          
+                        
+                        
+
+                        <Box sx={{ flexGrow: 0 }}>
+                          <Tooltip title="Open settings">
+                            <IconButton
+                              onClick={handleOpenUserMenu}
+                              sx={{ p: 0 }}
+                            >
+                              <Avatar
+                                alt="Remy Sharp"
+                                src="/static/images/avatar/2.jpg"
+                              />
+                            </IconButton>
+                          </Tooltip>
+                          
+                        </Box>
+                      </Toolbar>
+                    </Container>
+                  </AppBar>
+                </Stack> */}
           <Stack id="style-1" className={classes.messagesBody}>
             {selected == false ? (
               <Typography
@@ -346,6 +450,68 @@ function Channel() {
             <TextInput />
           </Stack>
         </Stack>
+        {display === true ? (
+          <Stack sx={{ width: "20%" }}>
+            <CssBaseline />
+            <Drawer
+              variant="permanent"
+              sx={{
+                width: "20%",
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: {
+                  width: "20%",
+                  boxSizing: "border-box",
+                },
+              }}
+              anchor="right"
+            >
+              <Toolbar />
+              <Box sx={{ overflow: "auto" }}>
+                <List>
+                  {data.data !== null
+                    ? data.data.map((text, index) => (
+                        <ListItem key={index} disablePadding>
+                          <ListItemButton onClick={() => handleSelect(text)}>
+                            <ListItemIcon>
+                              <Stack direction="row" spacing={2}>
+                                <StyledBadge
+                                  overlap="circular"
+                                  anchorOrigin={{
+                                    vertical: "bottom",
+                                    horizontal: "right",
+                                  }}
+                                  variant="dot"
+                                >
+                                  <Avatar alt="User One" src={text.image} />
+                                </StyledBadge>
+                              </Stack>
+                            </ListItemIcon>
+                            <ListItemText
+                              primary={text.title}
+                              secondary="welcome welcome "
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      ))
+                    : null}
+                </List>
+                <Divider />
+                <List>
+                  {["All mail", "Trash", "Spam"].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                      <ListItemButton onClick={() => handleSelect(text)}>
+                        <ListItemIcon>
+                          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            </Drawer>
+          </Stack>
+        ) : null}
       </Stack>
     </div>
   );

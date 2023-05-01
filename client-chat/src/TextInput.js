@@ -10,10 +10,10 @@ const useStyles = makeStyles((theme) =>
       justifyContent: "center",
       flex: 1,
       justifyContent: "flex-end",
-      width: "100%",
+      width: "97%",
     },
     wrapText: {
-      width: "100%",
+      width: "97%",
     },
     button: {
     },

@@ -55,13 +55,13 @@ import Channel from "./HomePages/Channel";
 import Public from "./HomePages/Public";
 import Private from "./HomePages/Private";
 import Video from "./HomePages/Video";
+import SearchIcon from '@mui/icons-material/Search';
 import { useAuth } from "../Hooks/useAuth";
 import { useAuthControl } from "../Hooks/useAuthControl";
 import { useNavigate } from "react-router-dom";
 import { Form, Modal } from "react-bootstrap";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
-
 
 import FormControl from "@mui/material/FormControl";
 import { useTheme } from "@mui/material/styles";
@@ -168,16 +168,13 @@ function Home() {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      
-      typeof value === "string" ? value.split(",") : value
-    );
+    setPersonName(typeof value === "string" ? value.split(",") : value);
   };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleSetting = () => {
-    navigate('/settings')
+    navigate("/settings");
   };
   const handleLogout = async () => {
     await logout();
@@ -193,7 +190,7 @@ function Home() {
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -210,7 +207,39 @@ function Home() {
               }}
             >
               LOGO
-            </Typography>
+            </Typography> */}
+            <form noValidate autoComplete="off">
+              <TextField
+                id="standard-text"
+                // className={classes.wrapText}
+                onChange={handleChange}
+                placeholder="Search User"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                  width: "100%",
+                  bgcolor: "whitesmoke",
+                  borderRadius: "10px",
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <>
+                      {
+                        <IconButton aria-label="upload" component="label">
+                          <SearchIcon color="secondary" />
+                          <input hidden type="submit" />
+                        </IconButton>
+                      }
+                    </>
+                  ),
+                }}
+              />
+            </form>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -261,7 +290,7 @@ function Home() {
                 }
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -279,7 +308,40 @@ function Home() {
               }}
             >
               LOGO
-            </Typography>
+            </Typography> */}
+            <form noValidate autoComplete="off">
+              <TextField
+                id="standard-text"
+                // className={classes.wrapText}
+                onChange={handleChange}
+                placeholder="Search User"
+                sx={{
+                  width: "90%",
+                  bgcolor: "whitesmoke",
+                  borderRadius: "10px",
+                  mr: 10,
+                  display: { xs: "flex", md: "none" },
+                  flexGrow: 1,
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <>
+                      {
+                        <IconButton aria-label="upload" component="label">
+                          <SearchIcon color="secondary" />
+                          <input hidden type="submit" />
+                        </IconButton>
+                      }
+                    </>
+                  ),
+                }}
+              />
+            </form>
             <Box
               sx={{
                 flexGrow: 1,
@@ -386,7 +448,6 @@ function Home() {
                   Create Channel
                 </DialogTitle>
                 <DialogContent dividers={scroll === "paper"}>
-                  
                   <Box
                     sx={{
                       marginTop: 8,
@@ -395,16 +456,10 @@ function Home() {
                       alignItems: "center",
                     }}
                   >
-                    
                     <Typography component="h1" variant="h5">
                       Sign Up
                     </Typography>
-                    <Box
-                      component="form"
-                      
-                      noValidate
-                      sx={{ mt: 1 }}
-                    >
+                    <Box component="form" noValidate sx={{ mt: 1 }}>
                       <TextField
                         margin="normal"
                         required
@@ -414,7 +469,6 @@ function Home() {
                         label="Type Channel Name"
                         name="firstname"
                         autoComplete="text"
-                        
                         autoFocus
                       />
                       <FormControl sx={{ m: 1, width: 300 }}>
@@ -449,11 +503,7 @@ function Home() {
                           MenuProps={MenuProps}
                         >
                           {names.map((name) => (
-                            <MenuItem
-                              key={name}
-                              value={name}
-                              
-                            >
+                            <MenuItem key={name} value={name}>
                               {name}
                             </MenuItem>
                           ))}
@@ -468,7 +518,6 @@ function Home() {
                           Register
                         </Button>
                       </Box>
-                      
                     </Box>
                   </Box>
                 </DialogContent>
@@ -492,28 +541,19 @@ function Home() {
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
               >
-                <DialogTitle id="scroll-dialog-title">
-                  New Group
-                </DialogTitle>
+                <DialogTitle id="scroll-dialog-title">New Group</DialogTitle>
                 <DialogContent dividers={scroll === "paper"}>
-                  
                   <Box
                     sx={{
-                      
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
                     }}
                   >
-                    
                     <Typography component="h1" variant="h5">
                       Create Group
                     </Typography>
-                    <Box
-                      component="form"
-                      noValidate
-                      sx={{ mt: 1 }}
-                    >
+                    <Box component="form" noValidate sx={{ mt: 1 }}>
                       <TextField
                         margin="normal"
                         required
@@ -557,17 +597,12 @@ function Home() {
                           MenuProps={MenuProps}
                         >
                           {names.map((name) => (
-                            <MenuItem
-                              key={name}
-                              value={name}
-                              
-                            >
+                            <MenuItem key={name} value={name}>
                               {name}
                             </MenuItem>
                           ))}
                         </Select>
                       </FormControl>
-                      
                     </Box>
                   </Box>
                 </DialogContent>
