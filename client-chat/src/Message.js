@@ -1,8 +1,8 @@
 import { React, useState } from "react";
-import { createStyles, makeStyles, Theme } from "@mui/styles";
+import { createStyles, makeStyles } from "@mui/styles";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "material-ui/colors";
-// let  pub = false;
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     messageRow: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) =>
       padding: "10px",
       backgroundColor: "#A8DDFD",
       width: "60%",
-      //height: "50px",
+      
       textAlign: "left",
       font: "400 .9em 'Open Sans', sans-serif",
       border: "1px solid #97C6E3",
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) =>
       padding: "10px",
       backgroundColor: "#f8e896",
       width: "60%",
-      //height: "50px",
+      
       textAlign: "left",
       font: "400 .9em 'Open Sans', sans-serif",
       border: "1px solid #dfd087",
@@ -121,10 +121,10 @@ export const MessageLeft = (props) => {
   const displayName = props.displayName ? props.displayName : "User Name";
   const classes = useStyles();
   let pub = true;
-  const [publicMessage, setPublicMessage] = useState(pub);
-  // const [group,setPublic] = useState(false)
-  // const [public,setPublic] = useState(false)
-  // const [public,setPublic] = useState(false)
+  const [publicMessage] = useState(pub);
+  
+  
+  
 
   return (
     <>
@@ -132,7 +132,7 @@ export const MessageLeft = (props) => {
         publicMessage ? (<div className={classes.messageRow} >
           <Avatar
             alt={displayName}
-            // className={classes.orange}
+            
             src={photoURL}
           ></Avatar>
           <div>
@@ -164,7 +164,7 @@ export const MessageRight = (props) => {
   const message = props.message ? props.message : "no message";
   const timestamp = props.timestamp ? props.timestamp : "";
   let pub = false;
-  const [publicMessage, setPublicMessage] = useState(pub);
+  const [publicMessage] = useState(pub);
   return (
     <div>
       {publicMessage ? null : (

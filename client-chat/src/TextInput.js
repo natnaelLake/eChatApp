@@ -25,9 +25,13 @@ export const TextInput = () => {
   const handleChange = (e)=>{
     setChange(e.target.value)
   }
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    console.log('data is :',change)
+  }
   return (
     <>
-      <form className={classes.wrapForm} noValidate autoComplete="off">
+      <form className={classes.wrapForm} noValidate autoComplete="off" onSubmit={(e)=> handleSubmit(e)}>
         <TextField
           id="standard-text"
           className={classes.wrapText}

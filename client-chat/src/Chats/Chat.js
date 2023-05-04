@@ -1,10 +1,10 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@mui/styles";
-import { Paper, Stack, Box } from "@mui/material";
+import { createStyles, makeStyles } from "@mui/styles";
+import { Paper, Stack } from "@mui/material";
 import { TextInput } from "../TextInput.js";
 import { MessageLeft, MessageRight } from "../Message";
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     paper: {
       width: "80vw",

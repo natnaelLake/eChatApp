@@ -2,6 +2,7 @@ const express = require("express");
 const Chat = require("../Model/chatModel");
 const User = require("../Model/UserModel");
 const createChat = async (req, res) => {
+  console.log(req.body);
   const { userId } = req.body;
   if (!userId) {
     console.log("UserId parm is not sent");
@@ -55,6 +56,7 @@ const accessChat = async (req, res) => {
           path: "latestMessage.sender",
           select: "firstName pic email",
         });
+        console.log(result)
         res.status(200).send(result);
       });
   } catch (error) {
@@ -146,9 +148,17 @@ const removeFromGroup = async (req, res) => {
     res.json(removed);
   }
 };
-
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}).select("-password");
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(200).json(error);
+  }
+};
 module.exports = {
   createChat,
+  getAllUsers,
   accessChat,
   createGroup,
   editGroup,

@@ -48,7 +48,14 @@ import Video from "./HomePages/Video";
 import Chip from "@mui/material/Chip";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
+import axios from "axios";
+import imageThree from "../Assets/pexels-chris-hepworth-16047551.jpg";
+import imageFour from "../Assets/pexels-david-bartus-610294.jpg";
+import imageFive from "../Assets/pexels-esther-huynh-bich-2340876.jpg";
+import imageNine from "../Assets/pexels-mirco-violent-blur-4033244.jpg";
+import imageSix from "../Assets/pexels-pixabay-219569.jpg";
+import imageTen from "../Assets/pexels-pixabay-247298.jpg";
+import imageEight from "../Assets/pexels-pixabay-413885.jpg";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -86,6 +93,8 @@ function Home() {
   const [active, setActive] = React.useState(navTabs[0]);
   const classes = useTabStyles();
   const { user } = useAuth();
+  const { createGroupChat } = useAuthControl();
+  const { getAllUser } = useAuthControl();
   const [state, setState] = React.useState({
     right: false,
   });
@@ -93,9 +102,36 @@ function Home() {
   const [group, setGroup] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [scroll] = React.useState("paper");
+  const [search, setSearch] = React.useState("");
+  const [channelName,setChannelName] = React.useState('')
+  const [groupName, setGroupName] = React.useState("");
+  const [searchData, setSearchData] = React.useState([
+    {
+      image: imageThree,
+      title: "User Eleven",
+    },
+    {
+      image: imageFive,
+      title: "User Twelve",
+    },
+    {
+      image: imageEight,
+      title: "User Thirteen",
+    },
+  ]);
+  const [searchError, setSearchError] = React.useState("");
+
   const handleClose = () => {
-    setOpen(false);
+    // setOpen(false);
+    setGroup(false);
+    setChannel(false)
   };
+  const handleGroupSubmit = async () => {
+    await createGroupChat(personName, groupName);
+  };
+  const handleChannelSubmit = async ()=>{
+    await createGroupChat(personName,channelName)
+  }
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
     if (open) {
@@ -113,6 +149,7 @@ function Home() {
     setChannel(false);
     setGroup(true);
   };
+  
   const navigate = useNavigate();
   const { logout } = useAuthControl();
   const toggleDrawer = (anchor, open) => (event) => {
@@ -134,6 +171,8 @@ function Home() {
     } = event;
     setPersonName(typeof value === "string" ? value.split(",") : value);
   };
+  console.log(personName);
+  console.log("group name is :", channelName);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -146,6 +185,33 @@ function Home() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    // await getAllUser()
+    if (search === "") {
+      setSearchError("Please Insert Something");
+      return;
+    }
+    try {
+      // const headerData = {
+      //   header:{
+      //     Authorization: `Bearer ${user.token}`
+      //   }
+      // }
+      const { data } = await axios.get(
+        `http://localhost:3001/search?search=${e.target.value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setSearchData(data);
+    } catch (error) {
+      setSearchError(error);
+    }
+  };
   return (
     <>
       <AppBar
@@ -157,7 +223,7 @@ function Home() {
             <form noValidate autoComplete="off">
               <TextField
                 id="standard-text"
-                onChange={handleChange}
+                onChange={(e) => handleSearch(e)}
                 placeholder="Search User"
                 sx={{
                   mr: 2,
@@ -175,7 +241,11 @@ function Home() {
                   endAdornment: (
                     <>
                       {
-                        <IconButton aria-label="upload" component="label">
+                        <IconButton
+                          aria-label="upload"
+                          component="label"
+                          onClick={(e) => handleSearch(e)}
+                        >
                           <SearchIcon color="secondary" />
                           <input hidden type="submit" />
                         </IconButton>
@@ -185,6 +255,7 @@ function Home() {
                 }}
               />
             </form>
+            <Typography>{searchError}</Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -227,10 +298,15 @@ function Home() {
                     variant={"scrollable"}
                     scrollButtons="auto"
                     orientation="vertical"
-                    sx={{textTransform:'capitalize'}}
+                    sx={{ textTransform: "capitalize" }}
                   >
                     {navTabs.map((navbars, index) => (
-                      <Tab sx={{textTransform:'capitalize'}} key={index} label={navbars} value={navbars} />
+                      <Tab
+                        sx={{ textTransform: "capitalize" }}
+                        key={index}
+                        label={navbars}
+                        value={navbars}
+                      />
                     ))}
                   </Tabs>
                 }
@@ -287,7 +363,12 @@ function Home() {
                 scrollButtons="auto"
               >
                 {navTabs.map((city, index) => (
-                  <Tab sx={{textTransform:'capitalize'}} key={index} label={city} value={city} />
+                  <Tab
+                    sx={{ textTransform: "capitalize" }}
+                    key={index}
+                    label={city}
+                    value={city}
+                  />
                 ))}
               </Tabs>
             </Box>
@@ -370,25 +451,26 @@ function Home() {
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
               >
-                <DialogTitle id="scroll-dialog-title">
+                <DialogTitle align = 'center' id="scroll-dialog-title">
                   Create Channel
                 </DialogTitle>
                 <DialogContent dividers={scroll === "paper"}>
                   <Box
                     sx={{
-                      marginTop: 8,
+                      marginTop:0,
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
                     }}
                   >
-                    <Typography component="h1" variant="h5">
+                    {/* <Typography component="h1" variant="h5">
                       Sign Up
-                    </Typography>
+                    </Typography> */}
                     <Box component="form" noValidate sx={{ mt: 1 }}>
                       <TextField
                         margin="normal"
                         required
+                        onChange={(e) => setChannelName(e.target.value)}
                         fullWidth
                         type="text"
                         id="ChannelName"
@@ -435,15 +517,6 @@ function Home() {
                           ))}
                         </Select>
                       </FormControl>
-                      <Box textAlign="center">
-                        <Button
-                          variant="outlined"
-                          color="secondary"
-                          type="submit"
-                        >
-                          Register
-                        </Button>
-                      </Box>
                     </Box>
                   </Box>
                 </DialogContent>
@@ -455,8 +528,8 @@ function Home() {
                   >
                     Cancel
                   </Button>
-                  <Button variant="contained" onClick={handleClose}>
-                    Subscribe
+                  <Button variant="contained" onClick={handleChannelSubmit}>
+                    Create
                   </Button>
                 </DialogActions>
               </Dialog>
@@ -467,7 +540,7 @@ function Home() {
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
               >
-                <DialogTitle id="scroll-dialog-title">New Group</DialogTitle>
+                <DialogTitle id="scroll-dialog-title" align = 'center'>Create New Group</DialogTitle>
                 <DialogContent dividers={scroll === "paper"}>
                   <Box
                     sx={{
@@ -476,12 +549,13 @@ function Home() {
                       alignItems: "center",
                     }}
                   >
-                    <Typography component="h1" variant="h5">
+                    {/* <Typography component="h1" variant="h5">
                       Create Group
-                    </Typography>
+                    </Typography> */}
                     <Box component="form" noValidate sx={{ mt: 1 }}>
                       <TextField
                         margin="normal"
+                        onChange={(e) => setGroupName(e.target.value)}
                         required
                         fullWidth
                         type="text"
@@ -540,7 +614,7 @@ function Home() {
                   >
                     Cancel
                   </Button>
-                  <Button variant="contained" onClick={handleClose}>
+                  <Button variant="contained" onClick={handleGroupSubmit}>
                     Create
                   </Button>
                 </DialogActions>
@@ -552,7 +626,7 @@ function Home() {
       <Box sx={{ margin: 10 }}>
         {active === "Channels" && (
           <Box>
-            <Channel />
+            <Channel userData={searchData} />
           </Box>
         )}
         {active === "Groups" && (

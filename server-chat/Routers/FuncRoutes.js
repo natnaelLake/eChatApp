@@ -10,8 +10,12 @@ const search = async (req, res) => {
         ],
       }
     : {};
-  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+  try {
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
   res.send(users);
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 module.exports = { search };

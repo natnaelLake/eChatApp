@@ -42,6 +42,8 @@ import { MessageLeft, MessageRight } from "../../Message";
 import { TextInput } from "../../TextInput.js";
 import PhoneIcon from '@mui/icons-material/Phone';
 import AddIcon from '@mui/icons-material/Add';
+import { useUserData } from "../../Hooks/useUserData";
+import { useAuthControl } from "../../Hooks/useAuthControl";
 // import {capitalize} from '@mui/material/utils'
 const useStyles = makeStyles(() =>
   createStyles({
@@ -184,13 +186,16 @@ function Channel() {
   const classes = useStyles();
   const [display, setDisplay] = React.useState(false);
   const [selected, setSelected] = React.useState(false);
+  const {userData}=useUserData()
+  const {createChat}=useAuthControl()
   // const [setSelectedData] = React.useState({});
   const [openProfile, setOpenProfile] = React.useState(false);
   const [scroll] = React.useState("paper");
   const handleClose = () => {
     setOpenProfile(false);
   };
-  const handleSelect = (data) => {
+  const handleSelect = async (data) => {
+    await createChat(data._id)
     // setSelectedData(data);
     setSelected(true);
   };
@@ -213,20 +218,14 @@ function Channel() {
               [`& .MuiDrawer-paper`]: {
                 width: "20%",
                 boxSizing: "border-box",
-              },
-              container_with_scrolls:{
-                overflowX:'scroll',
-                '&::-webkit-scrollbar':{
-                    width:0,
-                }
-            }
+              }
             }}
           >
             <Toolbar />
             <Box sx={{ overflow: "auto" }}>
               <List>
-                {data.data !== null
-                  ? data.data.map((text, index) => (
+                {userData !== null
+                  ? userData.map((text, index) => (
                       <ListItem key={index} disablePadding>
                         <ListItemButton onClick={() => handleSelect(text)}>
                           <ListItemIcon>
@@ -239,20 +238,20 @@ function Channel() {
                                 }}
                                 variant="dot"
                               >
-                                <Avatar alt="User One" src={text.image} />
+                                <Avatar alt={text.firstName + ' ' + text.lastName} src={text.pic} />
                               </StyledBadge>
                             </Stack>
                           </ListItemIcon>
                           <ListItemText
-                            primary={text.title}
-                            secondary="welcome welcome "
+                            primary={`${text.firstName} ${text.lastName}`}
+                            secondary={text.email}
                           />
                         </ListItemButton>
                       </ListItem>
                     ))
                   : null}
               </List>
-              <Divider />
+              {/* <Divider />
               <List>
                 {["All mail", "Trash", "Spam"].map((text, index) => (
                   <ListItem key={text} disablePadding>
@@ -264,7 +263,7 @@ function Channel() {
                     </ListItemButton>
                   </ListItem>
                 ))}
-              </List>
+              </List> */}
             </Box>
           </Drawer>
         </Stack>

@@ -1,9 +1,7 @@
 import React, {
   createContext,
-  useContext,
   useEffect,
   useReducer,
-  useState,
 } from "react";
 
 export const userContext = createContext();
@@ -33,7 +31,7 @@ export const UserContextProvider = ({ children }) => {
   console.log("authenticaiton state change is :", state.user);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
+    // console.log(user);
     if (user) {
       dispatch({ type: "LOGIN", payload: user });
     }

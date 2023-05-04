@@ -8,6 +8,7 @@ const {
   editGroup,
   removeFromGroup,
   addToGroup,
+  getAllUsers,
 } = require("../Routers/ChatRoutes");
 
 router.post("/createChat", protect, createChat);
@@ -16,5 +17,5 @@ router.post("/createGroup", protect, createGroup);
 router.put("/editGroup", protect, editGroup);
 router.put("/removeFromGroup", protect, removeFromGroup);
 router.put("/addToGroup", protect, addToGroup);
-
+router.get('/allUsers',getAllUsers)
 module.exports = router;
