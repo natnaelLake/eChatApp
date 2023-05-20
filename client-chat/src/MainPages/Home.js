@@ -200,7 +200,7 @@ function Home() {
       //   }
       // }
       const { data } = await axios.get(
-        `http://localhost:3001/search?search=${e.target.value}`,
+        `https://web-chat-app-backend-30r0.onrender.com/search?search=${e.target.value}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
