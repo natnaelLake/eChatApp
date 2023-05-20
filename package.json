@@ -1,0 +1,15 @@
+{
+  "name": "echatapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd server-chat && npm install",
+    "start-server": "cd server-chat && node ./bin/www",
+    "install-client": "cd client-chat && npm install",
+    "build-client": "cd client-chat && npm run build",
+    "start-client": "cd client-chat && npm run start"
+  },
+  "author": "",
+  "license": "ISC"
+}
