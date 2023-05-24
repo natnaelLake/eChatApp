@@ -18,6 +18,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import FormControl from "@mui/material/FormControl";
 import { useAuthControl } from "../../Hooks/useAuthControl";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -25,6 +26,13 @@ function Login() {
   const [password, setPassword] = useState("");
   const { Login, errorData } = useAuthControl();
   const { emailError, passwordError } = errorData;
+  const navigate = useNavigate();
+  const handleSignup = ()=>{
+    navigate("/signup")
+  }
+  const handleForgetButton = ()=>{
+    navigate("/login")
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     await Login(email, password);
@@ -115,7 +123,7 @@ function Login() {
                   textAlign="center"
                 >
                   <Grid item xs>
-                    <Link href="/signup" variant="body2">
+                    <Link onClick = {handleSignup} variant="body2">
                       Create Account?
                     </Link>
                   </Grid>
@@ -128,7 +136,7 @@ function Login() {
                 </Box>
                 <Grid container style={{ justifyContent: "center" }}>
                   <Grid item xs>
-                    <Link href="/login" variant="body2">
+                    <Link onClick={handleForgetButton} variant="body2">
                       Forgot password?
                     </Link>
                   </Grid>

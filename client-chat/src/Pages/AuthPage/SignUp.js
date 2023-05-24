@@ -18,6 +18,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import FormControl from "@mui/material/FormControl";
 import { useAuthControl } from "../../Hooks/useAuthControl";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +28,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const { Register, errorData } = useAuthControl();
+  const navigate = useNavigate();
   const {
     firstNameError,
     lastNameError,
@@ -43,6 +45,9 @@ function SignUp() {
   const handleMouseDownPassword = (e) => {
     e.preventDefault();
   };
+  const handleLogin = ()=>{
+    navigate("/login")
+  }
   return (
     <div>
       <Card
@@ -183,7 +188,7 @@ function SignUp() {
                   textAlign="center"
                 >
                   <Grid item xs>
-                    <Link href="/login" variant="body2">
+                    <Link onClick = {handleLogin} variant="body2">
                       Have an Account?
                     </Link>
                   </Grid>
@@ -196,7 +201,7 @@ function SignUp() {
                 </Box>
                 <Grid container style={{ justifyContent: "center" }}>
                   <Grid item xs>
-                    <Link href="/login" variant="body2">
+                    <Link onClick = {handleLogin}variant="body2">
                       Forgot password?
                     </Link>
                   </Grid>

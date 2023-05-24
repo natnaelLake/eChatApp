@@ -17,8 +17,8 @@ export const useAuthControl = () => {
   const Login = async (email, password) => {
     const loginData = { email, password };
     try {
-      const users = await axios.post("http://localhost:3001/login", loginData);
-      const { data } = await axios.get("http://localhost:3001/allUsers", {
+      const users = await axios.post("https://web-chat-app-backend-service.onrender.com/login", loginData);
+      const { data } = await axios.get("https://web-chat-app-backend-service.onrender.com/allUsers", {
         headers: {
           Authorization: `Bearer ${users.token}`,
         },
@@ -36,7 +36,7 @@ export const useAuthControl = () => {
     const registerData = { firstName, lastName, email, password, phone };
     try {
       const users = await axios.post(
-        "https://web-chat-app-backend-30r0.onrender.com/signup",
+        "https://web-chat-app-backend-service.onrender.com/signup",
         registerData
       );
       localStorage.setItem("user", JSON.stringify(users.data));
@@ -68,7 +68,7 @@ export const useAuthControl = () => {
       userId: userId,
     };
     const { data } = await axios.post(
-      "https://web-chat-app-backend-30r0.onrender.com/createChat",
+      "https://web-chat-app-backend-service.onrender.com/createChat",
       userIdValue,
       {
         headers: {
@@ -88,7 +88,7 @@ export const useAuthControl = () => {
   };
   const createGroupChat = async (users,name)=>{
       const groupData = {users,name}
-      const {data} = await axios.post('https://web-chat-app-backend-30r0.onrender.com/createGroup',groupData,{
+      const {data} = await axios.post('https://web-chat-app-backend-service.onrender.com/createGroup',groupData,{
         headers:{
           'Authorization':`Bearer ${user.token}`
         }
@@ -96,7 +96,7 @@ export const useAuthControl = () => {
   }
   const updateGroup = async (chatId,chatName)=>{
     const editGroupData = {chatId,chatName}
-    const {data} = axios.put('https://web-chat-app-backend-30r0.onrender.com/editGroup',editGroupData,{
+    const {data} = axios.put('https://web-chat-app-backend-service.onrender.com/editGroup',editGroupData,{
       headers:{
         'Authorization':`Bearer ${user.token}`
       }
@@ -107,7 +107,7 @@ export const useAuthControl = () => {
       chatId,
       userId
     }
-    const {data} = axios.put('https://web-chat-app-backend-30r0.onrender.com/removeFromGroup',addData,{
+    const {data} = axios.put('https://web-chat-app-backend-service.onrender.com/removeFromGroup',addData,{
       headers:{
         'Authorization':`Bearer ${user.token}`
       }
@@ -118,7 +118,7 @@ export const useAuthControl = () => {
       chatId,
       userId
     }
-    const {data} = axios.put('https://web-chat-app-backend-30r0.onrender.com/removeFromGroup',removeData,{
+    const {data} = axios.put('https://web-chat-app-backend-service.onrender.com/removeFromGroup',removeData,{
       headers:{
         'Authorization':`Bearer ${user.token}`
       }
