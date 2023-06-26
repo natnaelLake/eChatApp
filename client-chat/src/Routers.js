@@ -16,7 +16,7 @@ function Routers() {
   const { user } = useAuth();
   return (
     <div>
-      <Router>
+      {/* <Router> */}
         <Routes>
           <Route exact path="/" element={user ? <Home /> : <Login />} />
           <Route path="/login" element={!user ? <Login /> : <Home />} />
@@ -53,7 +53,7 @@ function Routers() {
             element={user ? <ManageProfile /> : <Login />}
           />
         </Routes>
-      </Router>
+      {/* </Router> */}
     </div>
   );
 }
